@@ -1,21 +1,23 @@
 package mc322.lab03;
 
 public class AquarioLombriga{
-    int tamLombriga, tamAquario, posicao; /* Posição da cauda. */
+    int tamAquario, tamLombriga, posicao; /* Posição da cauda. */
     boolean orientacaoDireita;
     /**
-    * Inicializa uma lombriga de dado tamanho, em um aquário de dado tamanho,
-    * em uma dada posição virada para a direita.
-    */
-    AquarioLombriga(int tamLombriga, int tamAquario, int posicao){
+     * tamAquario: tamanho do aquário;
+     * tamLombriga: tamanho da lombriga;
+     * posicao: posição do lombriga;
+     * Inicializa uma lombriga em um aquário orientada para a direita.
+     */
+    AquarioLombriga(int tamAquario, int tamLombriga, int posicao){
         if (posicao + tamLombriga - 1 > tamAquario){
             posicao = 1;
         }
         if (tamLombriga > tamAquario){
             tamAquario = tamLombriga;
         }
-        this.tamLombriga = tamLombriga;
         this.tamAquario = tamAquario;
+        this.tamLombriga = tamLombriga;
         this.posicao = posicao;
         this.orientacaoDireita = true;
     }
@@ -76,32 +78,32 @@ public class AquarioLombriga{
      * @ representa o corpo da lombriga e 0 representa sua cabeça.
      */
     void apresenta(){
-        String lombriga;
-        lombriga = "";
+        String aquarioLombriga;
+        aquarioLombriga = "";
         if (this.orientacaoDireita){
             for (int i = 0; i < this.posicao - 1; i++){
-                lombriga += '#';
+                aquarioLombriga += '#';
             }
             for (int i = 0; i < this.tamLombriga - 1; i++){
-                lombriga += '@';
+                aquarioLombriga += '@';
             }
-            lombriga += '0';
+            aquarioLombriga += '0';
             for (int i = 0; i < this.tamAquario - this.posicao - this.tamLombriga + 1; i++){
-                lombriga += '#';
+                aquarioLombriga += '#';
             }
         }
         else{
             for (int i = 0; i < this.posicao - this.tamLombriga; i++){
-                lombriga += '#';
+                aquarioLombriga += '#';
             }
-            lombriga += '0';
+            aquarioLombriga += '0';
             for (int i = 0; i < this.tamLombriga - 1; i++){
-                lombriga += '@';
+                aquarioLombriga += '@';
             }
             for (int i = 0; i < this.tamAquario - this.posicao; i++){
-                lombriga += '#';
+                aquarioLombriga += '#';
             }
         }
-        System.out.println(lombriga);
+        System.out.println(aquarioLombriga);
     }
 }
