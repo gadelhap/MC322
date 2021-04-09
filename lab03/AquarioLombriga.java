@@ -71,4 +71,37 @@ public class AquarioLombriga{
             return true;
         }
     }
+    /**
+     * Imprime na tela a lombriga no aquário em que # representa espaço vazio,
+     * @ representa o corpo da lombriga e 0 representa sua cabeça.
+     */
+    void apresenta(){
+        String lombriga;
+        lombriga = "";
+        if (this.orientacaoDireita){
+            for (int i = 0; i < this.posicao - 1; i++){
+                lombriga += '#';
+            }
+            for (int i = 0; i < this.tamLombriga - 1; i++){
+                lombriga += '@';
+            }
+            lombriga += '0';
+            for (int i = 0; i < this.tamAquario - this.posicao - this.tamLombriga + 1; i++){
+                lombriga += '#';
+            }
+        }
+        else{
+            for (int i = 0; i < this.posicao - this.tamLombriga; i++){
+                lombriga += '#';
+            }
+            lombriga += '0';
+            for (int i = 0; i < this.tamLombriga - 1; i++){
+                lombriga += '@';
+            }
+            for (int i = 0; i < this.tamAquario - this.posicao; i++){
+                lombriga += '#';
+            }
+        }
+        System.out.println(lombriga);
+    }
 }
