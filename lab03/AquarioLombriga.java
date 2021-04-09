@@ -39,4 +39,36 @@ public class AquarioLombriga{
             return true;
         }
     }
+    /**
+     * Vira a orientação da cabeça da lombriga.
+     */
+    void virar(){
+        if (this.orientacaoDireita){
+            this.posicao += this.tamanho - 1;
+        }
+        else{
+            this.posicao -= this.tamanho - 1;
+        }
+        this.orientacaoDireita = !this.orientacaoDireita;
+    }
+    /**
+     * Retorna true, caso a lombriga se mova 1 unidade na direção da cabeça, ou
+     * false, caso esteja no limite do aquário e se vire.
+     */
+    boolean mover(){
+        if ((this.orientacaoDireita && this.posicao == this.tamAquario - this.tamLombriga + 1) ||
+        (!this.orientacaoDireita && this.posicao == 1 + this.tamLombriga)){
+            virar();
+            return false;
+        }
+        else{
+            if (this.orientacaoDireita){
+                this.posicao++;
+            }
+            else{
+                this.posicao--;
+            }
+            return true;
+        }
+    }
 }
