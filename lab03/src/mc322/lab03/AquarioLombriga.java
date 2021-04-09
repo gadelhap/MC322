@@ -1,4 +1,4 @@
-package lab03;
+package mc322.lab03;
 
 public class AquarioLombriga{
     int tamLombriga, tamAquario, posicao; /* Posição da cauda. */
