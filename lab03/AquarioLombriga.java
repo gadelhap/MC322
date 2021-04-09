@@ -19,4 +19,18 @@ public class AquarioLombriga{
         this.posicao = posicao;
         this.orientacaoDireita = true;
     }
+    /**
+     * Retorna true caso a lombriga tenha crescido de tamanho em 1 unidade na
+     * direção da cauda ou false, caso contrário.
+     */
+    boolean crescer(){
+        if (this.posicao == 1){
+            return false;
+        }
+        else{
+            this.posicao--;
+            this.tamLombriga++;
+            return true;
+        }
+    }
 }
