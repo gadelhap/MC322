@@ -24,12 +24,18 @@ public class AquarioLombriga{
      * direção da cauda ou false, caso contrário.
      */
     boolean crescer(){
-        if (this.posicao == 1){
+        if ((this.orientacaoDireita && this.posicao == 1) ||
+            (!this.orientacaoDireita && this.posicao == this.tamAquario)){
             return false;
         }
         else{
-            this.posicao--;
             this.tamLombriga++;
+            if (orientacaoDireita){
+                this.posicao--;
+            }
+            else{
+                this.posicao++;
+            }
             return true;
         }
     }
