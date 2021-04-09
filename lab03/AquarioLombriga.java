@@ -44,10 +44,10 @@ public class AquarioLombriga{
      */
     void virar(){
         if (this.orientacaoDireita){
-            this.posicao += this.tamanho - 1;
+            this.posicao += this.tamLombriga - 1;
         }
         else{
-            this.posicao -= this.tamanho - 1;
+            this.posicao -= this.tamLombriga - 1;
         }
         this.orientacaoDireita = !this.orientacaoDireita;
     }
@@ -57,7 +57,7 @@ public class AquarioLombriga{
      */
     boolean mover(){
         if ((this.orientacaoDireita && this.posicao == this.tamAquario - this.tamLombriga + 1) ||
-        (!this.orientacaoDireita && this.posicao == 1 + this.tamLombriga)){
+        (!this.orientacaoDireita && this.posicao == this.tamLombriga)){
             virar();
             return false;
         }
