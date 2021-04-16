@@ -6,100 +6,85 @@ public class Tabuleiro{
 
     Tabuleiro(){
         this.pecas = new Peca[7][7];
-        Posicao posicao;
-        for (char i = 'a'; i <= 'g'; i++){
-            for (char j = '1'; j <= '7'; j++){
-                posicao = new Posicao(i + j);
-                if (!posicao.valida()){
-                    pecas[posicao.x][posicao.y] = null;
+        for (int i = 0; i < 7; i++){
+            for (int j = 0; j < 7; j++){
+                if (Funcoes.posicaoValida(i, j)){
+                    this.pecas[i][j] = new Peca(i, j);
                 }
                 else{
-                    pecas[posicao.x][posicao.y] = new Peca(posicao);
+                    this.pecas[i][j] = null;
                 }
             }
         }
         pecas[3][3] = null;
+        this.quantidadePecas = 32;
+    }
 
-        // for (int i = 0; i < 7; i++){
-        //     for (int j = 0; j < 7; j++){
-        //         if ((i < 2 && j < 2) | (i < 2 && j > 4) | (i > 4 && j > 4) | (i > 4 && j < 2)){
-        //             pecas[i][j] = new Peca("!");
-        //         } else if (i == 3 && j == 3){
-        //             pecas[3][3] = null;
-        //         } else {
-        //             char coluna = Funcoes.inteiroParaLetra(j);
-        //             char linha = (char)(7 - i); //!!!!!lembrar que as linhas vão de 7 a 1 (reverso)
-        //             String posicao = Character.toString(coluna) + Character.toString(linha);
-        //             pecas[i][j] = new Peca(posicao);
-        //         }
-        //     }
-        // }
+    public boolean comandoValido(String comando){
+        int srcX, srcY, tgtX, tgtY, intX, intY;
+        srcX = Funcoes.coordXCharParaInteiro(comando.charAt(0));
+        srcY = Funcoes.coordYCharParaInteiro(comando.charAt(1));
+        tgtX = Funcoes.coordXCharParaInteiro(comando.charAt(3));
+        tgtY = Funcoes.coordYCharParaInteiro(comando.charAt(4));
+        if (srcX == tgtX && srcY == tgtY){
+            System.out.println("Comando inválido: sem movimento.");
+            return false;
+        }
+        if (srcX != tgtX && srcY != tgtY){
+            System.out.println("Comando inválido: movimento diagonal.");
+            return false;
+        }
+        if (!Funcoes.posicaoValida(srcX, srcY)){
+            System.out.println("Comando inválido: source fora do tabuleiro.");
+            return false;
+        }
+        if (!Funcoes.posicaoValida(tgtX, tgtY)){
+            System.out.println("Comando inválido: target fora do tabuleiro.");
+            return false;
+        }
+        if (this.pecas[srcX][srcY] == null){
+            System.out.println("Comando inválido: source vazia.");
+            return false;
+        }
+        if (this.pecas[tgtX][tgtY] != null){
+            System.out.println("Comando inválido: target ocupada.");
+            return false;
+        }
+        if(Math.abs(srcX - tgtX) > 1 || Math.abs(srcY - tgtY) > 1){
+            System.out.println("Comando inválido: mais de uma peça intermediária.");
+            return false;
+        }
+        intX = (srcX + tgtX) / 2;
+        intY = (srcY + tgtY) / 2;
+        if (this.pecas[intX][intY] == null){
+            System.out.println("Comando inválido: sem peça intermediária.");
+            return false;
+        }
+        return true;
     }
 
     public void executarComando(String comando){
-        Posicao source, target, intermediaria;
-        source = new Posicao(comando.substring(0, 2));
-        target = new Posicao(comando.substring(3, 5));
-        if (source.x == target.x && source.y == target.y){
-            System.out.println("Comando inválido: sem movimento.");
+        if (!comandoValido(comando)){
             return;
         }
-        if (source.x != target.x && source.y != target.y){
-            System.out.println("Comando inválido: movimento diagonal.");
-            return;
-        }
-        if (!source.valida()){
-            System.out.println("Comando inválido: source fora do tabuleiro.");
-            return;
-        }
-        if (!target.valida()){
-            System.out.println("Comando inválido: target fora do tabuleiro.");
-            return;
-        }
-        if (this.pecas[source.x][source.y] == null){
-            System.out.println("Comando inválido: source vazia.");
-            return;
-        }
-        if (this.pecas[target.x][target.y] != null){
-            System.out.println("Comando inválido: target ocupada.");
-            return;
-        }
-        if (source.y != target.y){
-            if(Math.abs(source.y - target.y) > 1){
-                System.out.println("Comando inválido: mais de uma peça intermediária.");
-                return;
-            }
-            intermediaria = new Posicao(((char)(source.x + 97)) + ((char)((source.y + target.y)/2 + 49)));
-            if (this.pecas[intermediaria.x][intermediaria.y] == null){
-                System.out.println("Comando inválido: sem peça intermediária.");
-                return;   
-            }
-            retirarPeca(intermediaria);
-            retirarPeca(source);
-            colocarPeca(target);
-        }
-        else{
-            if(Math.abs(source.x - target.x) > 1){
-                System.out.println("Comando inválido: movimento inválido.");
-                return;
-            }
-            intermediaria = new Posicao(((char)((source.x + target.x)/2 + 97)) + ((char)(source.y + 49)));
-            if (this.pecas[intermediaria.x][intermediaria.y] == null){
-                System.out.println("Comando inválido: sem peça intermediária.");
-                return;   
-            }
-            retirarPeca(intermediaria);
-            retirarPeca(source);
-            colocarPeca(target);
-        }
+        int srcX, srcY, tgtX, tgtY, intX, intY;
+        srcX = Funcoes.coordXCharParaInteiro(comando.charAt(0));
+        srcY = Funcoes.coordYCharParaInteiro(comando.charAt(1));
+        tgtX = Funcoes.coordXCharParaInteiro(comando.charAt(3));
+        tgtY = Funcoes.coordYCharParaInteiro(comando.charAt(4));
+        intX = (srcX + tgtX) / 2;
+        intY = (srcY + tgtY) / 2;
+        retirarPeca(srcX, srcY);
+        retirarPeca(intX, intY);
+        colocarPeca(tgtX, tgtY);
+    }
 
+    public void colocarPeca(int x, int y){
+        this.pecas[x][y] = new Peca(x, y);
     }
-    
-    public void colocarPeca(Posicao posicao){
-        this.pecas[posicao.x][posicao.y] = new Peca(((char)(posicao.x + 97)) + ((char)(posicao.y + 49)));
-    }
-    public void retirarPeca(Posicao posicao){
-        this.pecas[posicao.x][posicao.y] = null;
+
+    public void retirarPeca(int x, int y){
+        this.pecas[x][y] = null;
     }
 
     public String paraString(){

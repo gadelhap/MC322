@@ -10,11 +10,11 @@ public class Funcoes {
     }
 
     public static int coordYCharParaInteiro(char y){
-        return (int)x - (int)('1');
+        return (int)y - (int)('1');
     }
 
     public static char coordYInteiroParaChar(int y){
-        return (char)(i + (int)('1'));
+        return (char)(y + (int)('1'));
     }
 
     /**

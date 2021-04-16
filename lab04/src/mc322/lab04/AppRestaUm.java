@@ -1,7 +1,7 @@
 package mc322.lab04;
 
 public class AppRestaUm{
-    String[] executaJogo(String path){
+    public static String[] executaJogo(String path){
         Tabuleiro tabuleiro = new Tabuleiro();
         CSVReader csv = new CSVReader();
         csv.setDataSource(path);

@@ -1,45 +1,25 @@
 package mc322.lab04;
 
 public class Peca{
-    Posicao posicao;
+    int x, y;
 
-    /**
-     * posicao: posição da peça no tabuleiro.
-     * Inicializa uma Peca.
+    /*
+    * x: coordenada x de Peca.
+    * y: coordeanda y de Peca.
+    * Inicializa uma Peca.
      */
-    Peca(Posicao posicao){
-        this.posicao = posicao;
+    Peca(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
-    /**
-     * novaPosicao: Posicao a ser atribuída a Peca.
+    /*
+       novaX: nova coordenada x de Peca.
+     * novaY: nova coordeanda y de Peca.
      * Atribui nova posição a Peca.
      */
-    void mudarPosicao(Posicao novaPosicao){
-        this.posicao = novaPosicao;
+    void mudarPosicao(int novaX, int novaY){
+        this.x = novaX;
+        this.y = novaY;
     }
-
-    // public void movimentarDireita(){
-    //     int l = Funcoes.letraParaInteiro(posicao.charAt(0));
-    //     l += 2;
-    //     this.posicao = Character.toString(Funcoes.inteiroParaLetra(l)) + posicao.charAt(1);
-    // }
-    // public void movimentarEsquerda(){
-    //     int l = Funcoes.letraParaInteiro(posicao.charAt(0));
-    //     l -= 2;
-    //     this.posicao = Character.toString(Funcoes.inteiroParaLetra(l)) + posicao.charAt(1);
-    // }
-
-    // public void movimentarCima(){
-    //     int n = Character.getNumericValue(posicao.charAt(1));
-    //     n += 2;
-    //     this.posicao = Character.toString(posicao.charAt(0)) + n;
-    // }
-
-    // public void movimentarBaixo(){
-    //     int n = Character.getNumericValue(posicao.charAt(1));
-    //     n -= 2;
-    //     this.posicao = Character.toString(posicao.charAt(0)) + n;
-    // }
-
 }
