@@ -18,5 +18,5 @@ public class AppRestaUm{
             tabuleiro.apresentar();
         }
         return historico;
-
+    }
 }
