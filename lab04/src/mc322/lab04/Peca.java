@@ -26,7 +26,7 @@ public class Peca {
 
     public void movimentarBaixo(){
         int l = Character.getNumericValue(posicao.charAt(1));
-        l = 2;
+        l += 2;
         this.posicao = Character.toString(posicao.charAt(0)) + l;
     }
 
