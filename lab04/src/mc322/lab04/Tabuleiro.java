@@ -1,6 +1,6 @@
 package mc322.lab04;
 
-public class Tabuleiro {
+public class Tabuleiro{
     Peca[][] pecas;
     int quantidadePecas;
 
@@ -109,6 +109,5 @@ public class Tabuleiro {
     public void apresentar(){
 
     } //apresenta com a formatacao desejada
-
 
 }

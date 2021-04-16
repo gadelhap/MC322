@@ -1,6 +1,6 @@
 package mc322.lab04;
 
-public class Peca {
+public class Peca{
     Posicao posicao;
 
     /**
