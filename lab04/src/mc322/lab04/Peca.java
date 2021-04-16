@@ -1,7 +1,7 @@
 package mc322.lab04;
 
 public class Peca {
-    String posicao; //"0" caso seja um espaco válido vazio, "!" caso seja invalido
+    String posicao; //null caso seja um espaco válido vazio, "!" caso seja invalido
 
     Peca(String posicao){
         this.posicao = posicao;
