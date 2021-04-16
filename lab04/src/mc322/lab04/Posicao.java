@@ -19,8 +19,8 @@ public class Posicao{
      */
     String devolvePosicao(){
         String posicaoString = "";
-        posicaoString += (this.x + 97);
-        posicaoString += (this.y + 49);
+        posicaoString += (char)(this.x + 97);
+        posicaoString += (char)(this.y + 49);
         return posicaoString;
     }
 
