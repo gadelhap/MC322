@@ -2,8 +2,9 @@ public class Posicao{
     int x, y;
 
     /**
-     * posicaoString: string de dois caracteres representando x e y,
-     * respectivamente. x é uma letra de a a g, e y é um número de 1 a 7.
+     * posicaoString: string de dois caracteres representando uma posição. O
+     * primeiro caractere representa x com uma letra de a a g, e o segundo
+     * representa y com um número de 1 a 7.
      * Inicializa uma Posicao.
      */
     Posicao(String posicaoString){
@@ -12,8 +13,9 @@ public class Posicao{
     }
 
     /**
-     * Retorna Posicao em forma de string de dois caracteres representando x e y,
-     * respectivamente. x é uma letra de a a g, e y é um número de 1 a 7.
+     * Retorna Posicao em forma de string de dois caracteres. O primeiro
+     * caractere representa x com uma letra de a a g, e o segundo representa y
+     * com um número de 1 a 7.
      */
     String devolvePosicao(){
         String posicaoString = "";
