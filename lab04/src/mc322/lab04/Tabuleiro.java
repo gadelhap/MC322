@@ -27,7 +27,7 @@ public class Tabuleiro{
         tgtX = Funcoes.coordXCharParaInteiro(comando.charAt(3));
         tgtY = Funcoes.coordYCharParaInteiro(comando.charAt(4));
         if (srcX == tgtX && srcY == tgtY){
-            System.out.println("Comando inválido: sem movimento.");
+            System.out.println("Comando inválido: peça movida para o mesmo local de origem.");
             return false;
         }
         if (srcX != tgtX && srcY != tgtY){
@@ -35,22 +35,22 @@ public class Tabuleiro{
             return false;
         }
         if (!Funcoes.posicaoValida(srcX, srcY)){
-            System.out.println("Comando inválido: source fora do tabuleiro.");
+            System.out.println("Comando inválido: peça fora do tabuleiro.");
             return false;
         }
         if (!Funcoes.posicaoValida(tgtX, tgtY)){
-            System.out.println("Comando inválido: target fora do tabuleiro.");
+            System.out.println("Comando inválido: movimento para fora do tabuleiro.");
             return false;
         }
         if (this.pecas[srcX][srcY] == null){
-            System.out.println("Comando inválido: source vazia.");
+            System.out.println("Comando inválido: não há peçã na posição de origem.");
             return false;
         }
         if (this.pecas[tgtX][tgtY] != null){
-            System.out.println("Comando inválido: target ocupada.");
+            System.out.println("Comando inválido: já possui uma peça na posicao de destino.");
             return false;
         }
-        if(Math.abs(srcX - tgtX) > 1 || Math.abs(srcY - tgtY) > 1){
+        if(Math.abs(srcX - tgtX) > 2 || Math.abs(srcY - tgtY) > 2){
             System.out.println("Comando inválido: mais de uma peça intermediária.");
             return false;
         }
@@ -63,6 +63,14 @@ public class Tabuleiro{
         return true;
     }
 
+    public void colocarPeca(int x, int y){
+        this.pecas[x][y] = new Peca(x, y);
+    }
+
+    public void retirarPeca(int x, int y){
+        this.pecas[x][y] = null;
+    }
+
     public void executarComando(String comando){
         if (!comandoValido(comando)){
             return;
@@ -72,27 +80,33 @@ public class Tabuleiro{
         srcY = Funcoes.coordYCharParaInteiro(comando.charAt(1));
         tgtX = Funcoes.coordXCharParaInteiro(comando.charAt(3));
         tgtY = Funcoes.coordYCharParaInteiro(comando.charAt(4));
-        intX = (srcX + tgtX) / 2;
-        intY = (srcY + tgtY) / 2;
+        intX = (srcX + tgtX) / 2; // posicao da
+        intY = (srcY + tgtY) / 2; // peca comida
         retirarPeca(srcX, srcY);
         retirarPeca(intX, intY);
         colocarPeca(tgtX, tgtY);
     }
 
-    public void colocarPeca(int x, int y){
-        this.pecas[x][y] = new Peca(x, y);
-    }
-
-    public void retirarPeca(int x, int y){
-        this.pecas[x][y] = null;
-    }
-
     public String paraString(){
-
+        return "";
     } //converte o jogo de matriz para string
 
     public void apresentar(){
-
+        for (int i = 0; i < 7; i++){
+            for (int j = 0; j < 7; j++){
+                System.out.print(7 - i);
+                if (Funcoes.posicaoValida(i, j)){
+                    if (pecas[i][j] != null){
+                        System.out.print(" P");
+                    } else {
+                        System.out.print(" -");
+                    }
+                } else {
+                    System.out.print("  "); //2 espacos
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g");
     } //apresenta com a formatacao desejada
-
 }

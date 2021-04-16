@@ -11,7 +11,7 @@ public class AppRestaUm{
         System.out.println("Tabuleiro inicial:");
         tabuleiro.apresentar();
         for (int i = 0; i < comandos.length; i++){
-            tabuleiro.realizarComando(comandos[i]);
+            tabuleiro.executarComando(comandos[i]);
             historico[i] = tabuleiro.paraString();
             System.out.println("Source: " + comandos[i].substring(0, 2));
             System.out.println("Target: " + comandos[i].substring(3, 5));
