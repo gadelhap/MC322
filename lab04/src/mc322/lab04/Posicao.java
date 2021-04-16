@@ -27,7 +27,7 @@ public class Posicao{
     /**
      * Retorna true se Posicao é dentro do tabuleiro, e false, caso contrário.
      */
-    valida(){
+    boolean valida(){
         if ((this.x < 0 || this.x > 6) || (this.y < 0 || this.y > 6)){
             return false;
         }
