@@ -19,15 +19,15 @@ public class Peca {
     }
 
     public void movimentarCima(){
-        int l = Character.getNumericValue(posicao.charAt(1));
-        l += 2;
-        this.posicao = Character.toString(posicao.charAt(0)) + l;
+        int n = Character.getNumericValue(posicao.charAt(1));
+        n += 2;
+        this.posicao = Character.toString(posicao.charAt(0)) + n;
     }
 
     public void movimentarBaixo(){
-        int l = Character.getNumericValue(posicao.charAt(1));
-        l += 2;
-        this.posicao = Character.toString(posicao.charAt(0)) + l;
+        int n = Character.getNumericValue(posicao.charAt(1));
+        n -= 2;
+        this.posicao = Character.toString(posicao.charAt(0)) + n;
     }
 
 }
