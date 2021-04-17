@@ -88,7 +88,21 @@ public class Tabuleiro{
     }
 
     public String paraString(){
-        return "";
+        String tab = "";
+        for (int i = 0; i < 7; i++){
+            for (int j = 0; j < 7; j++){
+                if (Funcoes.posicaoValida(i, j)){
+                    if (pecas[i][j] != null){
+                        tab += "P";
+                    } else {
+                        tab += "-";
+                    }
+                } else {
+                    tab += " ";
+                }
+            }
+        }
+        return tab;
     } //converte o jogo de matriz para string
 
     public void apresentar(){

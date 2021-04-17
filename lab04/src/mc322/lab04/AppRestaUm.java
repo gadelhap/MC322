@@ -10,7 +10,7 @@ public class AppRestaUm{
         historico[0] = tabuleiro.paraString();
         System.out.println("Tabuleiro inicial:");
         tabuleiro.apresentar();
-        for (int i = 0; i < comandos.length; i++){
+        for (int i = 1; i <= comandos.length; i++){
             tabuleiro.executarComando(comandos[i]);
             historico[i] = tabuleiro.paraString();
             System.out.println("Source: " + comandos[i].substring(0, 2));
