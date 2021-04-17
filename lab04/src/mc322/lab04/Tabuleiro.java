@@ -84,7 +84,8 @@ public class Tabuleiro {
         }
         intX = (srcX + tgtX) / 2;
         intY = (srcY + tgtY) / 2; // posição da peça intermediária a ser comida.
-        if (this.pecas[intX][intY] == null) {
+        if (this.pecas[intX][intY] == null ||
+                (Math.abs(srcX - intX) < 1 && Math.abs(srcY - intY) < 1)) {
             System.out.println("Comando inválido: não há peça intermediária.");
             return false;
         }
