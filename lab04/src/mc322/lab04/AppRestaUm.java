@@ -35,11 +35,11 @@ public class AppRestaUm {
     public static void main(String args[]){
         Scanner input = new Scanner(System.in);
         String path = input.next();
-        String estados[] = new String[3];
+        // String estados[];
         path = path.replaceAll("'", "");
-        estados = executaJogo(path);
+        /*estados = */executaJogo(path);
         // System.out.println();
-        // for (int i = 0; i < 3; i++){
+        // for (int i = 0; i < estados.length; i++){
         //     System.out.println(estados[i]);
         // }
     }
