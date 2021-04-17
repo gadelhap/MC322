@@ -36,7 +36,7 @@ public class AppRestaUm {
         Scanner input = new Scanner(System.in);
         String path = input.next();
         // String estados[];
-        path = path.replaceAll("'", "");
+        path = path.replaceAll("'", ""); //caso usuario passe o path com aspas (arrastando o path pro terminal)
         /*estados = */executaJogo(path);
         // System.out.println();
         // for (int i = 0; i < estados.length; i++){
