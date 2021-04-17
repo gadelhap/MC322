@@ -1,5 +1,7 @@
 package mc322.lab04;
 
+import java.util.Scanner;
+
 public class AppRestaUm {
     
     /**
@@ -31,11 +33,14 @@ public class AppRestaUm {
     }
 
     public static void main(String args[]){
+        Scanner input = new Scanner(System.in);
+        String path = input.next();
         String estados[] = new String[3];
-        estados = executaJogo("/home/pedro/MC322/lab04/testes/teste01.csv");
-        System.out.println();
-        for (int i = 0; i < 3; i++){
-            System.out.println(estados[i]);
-        }
+        path = path.replaceAll("'", "");
+        estados = executaJogo(path);
+        // System.out.println();
+        // for (int i = 0; i < 3; i++){
+        //     System.out.println(estados[i]);
+        // }
     }
 }

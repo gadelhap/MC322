@@ -119,7 +119,7 @@ public class Tabuleiro {
      */
     public String paraString() {
         String tabuleiro = "";
-        for (int j = 0; j < 7; j++) {
+        for (int j = 6; j >= 0; j--) {
             for (int i = 0; i < 7; i++) {
                 if (Posicao.valida(i, j)) {
                     if (pecas[i][j] != null) {
@@ -140,7 +140,7 @@ public class Tabuleiro {
      * Imprime o tabuleiro com o eixo de coordenadas na tela.
      */
     public void apresentar() {
-        for (int j = 0; j < 7; j++) {
+        for (int j = 6; j >= 0; j--) {
             System.out.print(j + 1);
             for (int i = 0; i < 7; i++) {
                 if (Posicao.valida(i, j)) {
