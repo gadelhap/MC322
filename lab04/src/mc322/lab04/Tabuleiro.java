@@ -2,7 +2,7 @@ package mc322.lab04;
 
 public class Tabuleiro {
     
-    Peca[][] pecas;
+    private Peca[][] pecas;
 
     /**
      * Inicializa um Tabuleiro.
@@ -28,7 +28,7 @@ public class Tabuleiro {
      */
     public void colocarPeca(int x, int y) {
         if (Posicao.valida(x, y)) {
-            this.pecas[x][y] = new Peca(x, y);
+            this.pecas[x][y].alterarTipo();
         }
     }
 
@@ -39,7 +39,7 @@ public class Tabuleiro {
      */
     public void retirarPeca(int x, int y) {
         if (Posicao.valida(x, y)) {
-            this.pecas[x][y] = null;
+            this.pecas[x][y].alterarTipo();
         }
     }
 
@@ -84,7 +84,7 @@ public class Tabuleiro {
         }
         intX = (srcX + tgtX) / 2;
         intY = (srcY + tgtY) / 2; // posição da peça intermediária a ser comida.
-        if (this.pecas[intX][intY] == null ||
+        if (this.pecas[intX][intY].tipo() == '-' ||
                 (Math.abs(srcX - intX) < 1 && Math.abs(srcY - intY) < 1)) {
             System.out.println("Comando inválido: não há peça intermediária.");
             return false;
@@ -123,11 +123,7 @@ public class Tabuleiro {
         for (int j = 6; j >= 0; j--) {
             for (int i = 0; i < 7; i++) {
                 if (Posicao.valida(i, j)) {
-                    if (pecas[i][j] != null) {
-                        tabuleiro += 'P';
-                    } else {
-                        tabuleiro += '-';
-                    }
+                    tabuleiro += this.pecas[i][j].tipo();
                 } else {
                     tabuleiro += ' ';
                 }
@@ -145,12 +141,8 @@ public class Tabuleiro {
             System.out.print(j + 1);
             for (int i = 0; i < 7; i++) {
                 if (Posicao.valida(i, j)) {
-                    if (pecas[i][j] != null) {
-                        System.out.print(" P");
-                    } else  {
-                        System.out.print(" -");
-                    }
-                } else  {
+                    System.out.print(pecas[i][j].tipo());
+                } else {
                     System.out.print("  "); //2 espacos
                 }
             }
