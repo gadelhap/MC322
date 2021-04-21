@@ -13,13 +13,6 @@ public class Peca {
     }
 
     /**
-     * Altera o tipo da peça.
-     */
-    void alterarTipo(){
-        this.tipo = (this.tipo == 'P' ? '-' : 'P');
-    }
-
-    /**
      * Retorna o tipo da peça.
      */
     char tipo(){

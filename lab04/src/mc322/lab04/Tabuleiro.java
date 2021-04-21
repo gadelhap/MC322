@@ -28,7 +28,7 @@ public class Tabuleiro {
      */
     public void colocarPeca(int x, int y) {
         if (Posicao.valida(x, y)) {
-            this.pecas[x][y].alterarTipo();
+            this.pecas[x][y] = new Peca(true);;
         }
     }
 
@@ -39,7 +39,7 @@ public class Tabuleiro {
      */
     public void retirarPeca(int x, int y) {
         if (Posicao.valida(x, y)) {
-            this.pecas[x][y].alterarTipo();
+            this.pecas[x][y] = new Peca(false);
         }
     }
 
@@ -70,11 +70,11 @@ public class Tabuleiro {
             System.out.println("Comando inválido: target fora do tabuleiro.");
             return false;
         }
-        if (this.pecas[srcX][srcY] == null) {
+        if (this.pecas[srcX][srcY].tipo() == '-') {
             System.out.println("Comando inválido: não há peça na source.");
             return false;
         }
-        if (this.pecas[tgtX][tgtY] != null) {
+        if (this.pecas[tgtX][tgtY].tipo() == 'P') {
             System.out.println("Comando inválido: já há peça na target.");
             return false;
         }
@@ -141,7 +141,7 @@ public class Tabuleiro {
             System.out.print(j + 1);
             for (int i = 0; i < 7; i++) {
                 if (Posicao.valida(i, j)) {
-                    System.out.print(pecas[i][j].tipo());
+                    System.out.print(" " + pecas[i][j].tipo());
                 } else {
                     System.out.print("  "); //2 espacos
                 }
