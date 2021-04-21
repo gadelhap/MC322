@@ -26,7 +26,7 @@ public class Tabuleiro {
      * y: coordenada y.
      * Coloca uma peça na posição dada, caso válida.
      */
-    public void colocarPeca(int x, int y) {
+    private void colocarPeca(int x, int y) {
         if (Posicao.valida(x, y)) {
             this.pecas[x][y] = new Peca(true);;
         }
@@ -37,7 +37,7 @@ public class Tabuleiro {
      * y: coordenada y.
      * Retira uma peça da posição dada, caso válida.
      */
-    public void retirarPeca(int x, int y) {
+    private void retirarPeca(int x, int y) {
         if (Posicao.valida(x, y)) {
             this.pecas[x][y] = new Peca(false);
         }
@@ -48,7 +48,7 @@ public class Tabuleiro {
      * peça a ser movida para a posição x2y2.
      * Retorna true, caso seja um comando válido, e false, caso contrário.
      */
-    public boolean comandoValido(String comando) {
+    private boolean comandoValido(String comando) {
         int srcX, srcY, tgtX, tgtY, intX, intY;
         srcX = Posicao.coordXCharParaInteiro(comando.charAt(0));
         srcY = Posicao.coordYCharParaInteiro(comando.charAt(1));
