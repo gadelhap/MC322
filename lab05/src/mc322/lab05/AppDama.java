@@ -6,9 +6,9 @@ public class AppDama {
     
     /**
      * path: path para um arquivo CSV com uma série de comandos.
-     * Retorna um vetor de strings com todos estados do tabuleiro de Damas
-     * durante um jogo com os dados comandos e imprime na tela esses estados
-     * com suas descrições.
+     * Retorna um vetor de strings com todos estados do tabuleiro de Jogo de
+     * Damas durante um jogo com os dados comandos e imprime na tela esses
+     * estados com suas descrições.
      */
     public static String[] executaJogo(String path) {
         Tabuleiro tabuleiro = new Tabuleiro();
