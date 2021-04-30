@@ -10,34 +10,26 @@ public class AppDama {
      * Damas durante um jogo com os dados comandos e imprime na tela esses
      * estados com suas descrições.
      */
-    public static String[] executaJogo(String path) {
+    public static void executaJogo(String pathComandos, String pathEstadoFinal) {
         Tabuleiro tabuleiro = new Tabuleiro();
         CSVHandling csv = new CSVHandling();
         String comandos[];
-        String estados[];
-        csv.setDataSource(path);
+        csv.setDataSource(pathComandos);
         comandos = csv.requestCommands();
-        estados = new String[comandos.length + 1];
-        estados[0] = tabuleiro.paraString();
         System.out.println("Tabuleiro inicial:");
-        tabuleiro.apresentar();
+        tabuleiro.imprimirTabuleiro();
         for (int i = 0; i < comandos.length; i++) {
             System.out.println();
             tabuleiro.executarComando(comandos[i]);
-            estados[i + 1] = tabuleiro.paraString();
             System.out.println("Source: " + comandos[i].substring(0, 2));
             System.out.println("Target: " + comandos[i].substring(3, 5));
-            tabuleiro.apresentar();
+            tabuleiro.imprimirTabuleiro();
         }
+        tabuleiro.exportarArquivo(pathEstadoFinal);
         return estados;
     }
 
     public static void main(String args[]){
-        String path = args[0];
-        /*estados = */executaJogo(path);
-        // System.out.println();
-        // for (int i = 0; i < estados.length; i++){
-        //     System.out.println(estados[i]);
-        // }
+        executaJogo(args[0], args[1]);
     }
 }
