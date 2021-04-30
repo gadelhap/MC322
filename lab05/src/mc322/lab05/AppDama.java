@@ -12,7 +12,7 @@ public class AppDama {
      */
     public static String[] executaJogo(String path) {
         Tabuleiro tabuleiro = new Tabuleiro();
-        CSVReader csv = new CSVReader();
+        CSVHandling csv = new CSVHandling();
         String comandos[];
         String estados[];
         csv.setDataSource(path);
@@ -33,10 +33,7 @@ public class AppDama {
     }
 
     public static void main(String args[]){
-        Scanner input = new Scanner(System.in);
-        String path = input.next();
-        // String estados[];
-        path = path.replaceAll("'", ""); //caso usuario passe o path com aspas (arrastando o path pro terminal)
+        String path = args[0];
         /*estados = */executaJogo(path);
         // System.out.println();
         // for (int i = 0; i < estados.length; i++){

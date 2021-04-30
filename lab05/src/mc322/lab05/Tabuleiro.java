@@ -42,24 +42,36 @@ public class Tabuleiro {
     }
 
     /**
-     * Retorna o tabuleiro em forma de string com os tipos das peças, pulando
-     * uma linha para cada linha.
+     * path: caminho para um arquivo CSV.
+     * Escreve no arquivo as casas do tabuleiro, uma a cada linha, coluna por
+     * coluna. As casas são as posições ji seguidas da respectiva peça: vazia
+     * '_', peça branca 'b' ou peça preta 'p'.
      */
-    public String paraString() {
-        String tabuleiro = "";
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                tabuleiro += this.pecas[i][j].getTipo();
+    public String exportarArquivo(String path) {
+        CSVHandling csv = new CSVHandling();
+        String tabuleiro[] = new String[8 * 8];
+        char coluna, linha;
+        for (int j = 0; j < 8; j++) {
+            coluna = Posicao.colunaInteiroParaChar(j);
+            for (int i = 0; i < 8; i++) {
+                linha = Posicao.linhaInteiroParaChar(i);
+                tabuleiro[j * 8 + i] += coluna + linha;
+                if (this.pecas[i][j] == '-') {
+                    tabuleiro[j * 8 + i] += '_';
+                } else {
+                    tabuleiro[j * 8 + i] += Character.toLowerCase(this.pecas[i][j].getTipo());
+                }
             }
-            tabuleiro += '\n';
         }
+        csv.setDataExport(path);
+        csv.exportState(tabuleiro);
         return tabuleiro;
     }
 
     /**
      * Imprime o tabuleiro com o eixo de coordenadas na tela.
      */
-    public void apresentar() {
+    public void imprimirTabuleiro() {
         for (int i = 0; i < 8; i++) {
             System.out.print(i + 1);
             for (int j = 0; j < 8; j++) {
