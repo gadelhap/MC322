@@ -26,7 +26,6 @@ public class AppDama {
             tabuleiro.imprimirTabuleiro();
         }
         tabuleiro.exportarArquivo(pathEstadoFinal);
-        return estados;
     }
 
     public static void main(String args[]){

@@ -32,6 +32,7 @@ public class Tabuleiro {
                 for (int j = 0; j < 8; j += 2) {
                     this.pecas[i][j] = new Peao('p');
                     this.pecas[i][j + 1] = new Peca('-');
+                }
             } else {
                 for (int j = 0; j < 8; j += 2) {
                     this.pecas[i][j] = new Peca('-');
@@ -41,13 +42,15 @@ public class Tabuleiro {
         }
     }
 
+    public void executarComando(String comando);
+
     /**
      * path: caminho para um arquivo CSV.
      * Escreve no arquivo as casas do tabuleiro, uma a cada linha, coluna por
      * coluna. As casas são as posições ji seguidas da respectiva peça: vazia
      * '_', peça branca 'b' ou peça preta 'p'.
      */
-    public String exportarArquivo(String path) {
+    public void exportarArquivo(String path) {
         CSVHandling csv = new CSVHandling();
         String tabuleiro[] = new String[8 * 8];
         char coluna, linha;
@@ -56,7 +59,7 @@ public class Tabuleiro {
             for (int i = 0; i < 8; i++) {
                 linha = Posicao.linhaInteiroParaChar(i);
                 tabuleiro[j * 8 + i] += coluna + linha;
-                if (this.pecas[i][j] == '-') {
+                if (this.pecas[i][j].getTipo() == '-') {
                     tabuleiro[j * 8 + i] += '_';
                 } else {
                     tabuleiro[j * 8 + i] += Character.toLowerCase(this.pecas[i][j].getTipo());
@@ -65,7 +68,6 @@ public class Tabuleiro {
         }
         csv.setDataExport(path);
         csv.exportState(tabuleiro);
-        return tabuleiro;
     }
 
     /**

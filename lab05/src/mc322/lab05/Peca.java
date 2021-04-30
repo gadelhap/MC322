@@ -28,5 +28,7 @@ public class Peca {
         this.tipo = tipo;
     }
 
-    public boolean movimentoValido(int[][] trajeto);
+    public boolean movimentoValido(int[][] trajeto){
+        return true;
+    }
 }
