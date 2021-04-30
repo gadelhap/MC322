@@ -29,8 +29,5 @@ public class Dama extends Peca{
         return true;
     }
 
-    // @Override
-    // protected void mover() {
-    //     super.mover();
-    // }
+
 }

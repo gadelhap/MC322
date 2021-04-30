@@ -29,8 +29,4 @@ public class Peao extends Peca{
         return true;
     }
 
-    // @Override
-    // protected void mover() {
-    //     super.mover();
-    // }
 }
