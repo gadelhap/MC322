@@ -42,7 +42,16 @@ public class Tabuleiro {
         }
     }
 
-    public void executarComando(String comando);
+    private Peca[] determinarTrajeto(int si, int sj, int ti, int tj) {
+        Peca trajeto[];
+        
+    }
+
+    private void solicitaMovimento(String comando) {}
+
+    public void executarComando(String comando) {
+        
+    }
 
     /**
      * path: caminho para um arquivo CSV.

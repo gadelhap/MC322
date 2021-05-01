@@ -1,25 +1,25 @@
 package mc322.lab05;
 
-public class Peao extends Peca{
+public class Peao extends Peca {
     
     /**
      * tipo: tipo do peão.
      * Inicializa um peão.
      */
-    Peao(char tipo) {
-        super(tipo);
+    Peao(char tipo, int linha, int coluna) {
+        super(tipo, linha, coluna);
     }
 
     /**
-     * trajeto: vetor com as posições do trajeto, em que a primeira posição é a
-     * do peão na source e a última é o target.
+     * trajeto: vetor com as peças do trajeto, em que a primeira é a peça na
+     * source e a última é a peça no target.
      * Retorna true se o movimento é válido.
      */
-    public boolean movimentoValido(int[][] trajeto) {
-        if (trajeto[0][0] == trajeto[trajeto.length - 1][0] || trajeto[0][1] == trajeto[trajeto.length - 1][1]){
+    public boolean movimentoValido(Peca[] trajeto) {
+        if (trajeto[0][0] == trajeto[trajeto.length - 1][0] || trajeto[0][1] == trajeto[trajeto.length - 1][1]) {
             return false;
         }
-        if (trajeto.length != 3){
+        if (trajeto.length != 3) {
             return false;
         }
         if (!Posicao.valida(trajeto[trajeto.length - 1][0], trajeto[trajeto.length - 1][1])) {

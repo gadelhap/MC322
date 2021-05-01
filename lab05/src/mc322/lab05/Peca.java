@@ -2,15 +2,20 @@ package mc322.lab05;
 
 public class Peca {
     
-    protected char tipo; /* vazia ('-'), peão preto 'p', peão branco 'b', dama
+    protected char tipo; /* vazia '-', peão preto 'p', peão branco 'b', dama
                             preta 'P' ou dama branca 'B' */
-    
+    protected int linha, coluna;
+
     /**
      * tipo: tipo da peça.
+     * linha: linha da peça.
+     * coluna: coluna da peça.
      * Inicializa uma peça.
      */
-    Peca(char tipo) {
+    Peca(char tipo, int linha, int coluna) {
         this.tipo = tipo;
+        this.linha = linha;
+        this.coluna = coluna;
     }
 
     /**
@@ -28,7 +33,21 @@ public class Peca {
         this.tipo = tipo;
     }
 
-    public boolean movimentoValido(int[][] trajeto){
-        return true;
+    /**
+     * Retorna a linha da peça.
+     */
+    public int getLinha() {
+        return this.linha;
+    }
+
+    /**
+     * Retorna a coluna da peça.
+     */
+    public int getColuna() {
+        return this.coluna;
+    }
+
+    public boolean movimentoValido(Pecas trajeto[]){
+        return false;
     }
 }
