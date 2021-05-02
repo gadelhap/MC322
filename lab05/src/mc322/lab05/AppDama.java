@@ -29,6 +29,6 @@ public class AppDama {
     }
 
     public static void main(String args[]){
-        executaJogo(args[0], args[1]);
+        executaJogo(args[1], args[2]);
     }
 }

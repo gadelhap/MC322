@@ -12,31 +12,31 @@ public class Tabuleiro {
         for (int i = 0; i < 3; i++) {
             if (i == 0 || i == 2) {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peca('-');
-                    this.pecas[i][j + 1] = new Peao('b');
+                    this.pecas[i][j] = new Peca('-', i, j);
+                    this.pecas[i][j + 1] = new Peao('b', i, j + 1);
                 }
             } else {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peao('b');
-                    this.pecas[i][j + 1] = new Peca('-');
+                    this.pecas[i][j] = new Peao('b', i, j);
+                    this.pecas[i][j + 1] = new Peca('-', i, j + 1);
                 }
             }
         }
         for (int i = 3; i < 5; i++) {
             for (int j = 0; j < 8; j++) {
-                this.pecas[i][j] = new Peca('-');
+                this.pecas[i][j] = new Peca('-', i, j);
             }
         }
         for (int i = 5; i < 8; i++) {
             if (i == 5 || i == 7) {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peao('p');
-                    this.pecas[i][j + 1] = new Peca('-');
+                    this.pecas[i][j] = new Peao('p', i, j);
+                    this.pecas[i][j + 1] = new Peca('-', i, j + 1);
                 }
             } else {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peca('-');
-                    this.pecas[i][j + 1] = new Peao('p');
+                    this.pecas[i][j] = new Peca('-', i, j);
+                    this.pecas[i][j + 1] = new Peao('p', i, j + 1);
                 }
             }
         }
