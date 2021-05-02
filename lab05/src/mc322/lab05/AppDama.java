@@ -20,7 +20,7 @@ public class AppDama {
         tabuleiro.imprimirTabuleiro();
         for (int i = 0; i < comandos.length; i++) {
             System.out.println();
-            tabuleiro.executarComando(comandos[i]);
+            tabuleiro.solicitaMovimento(comandos[i]);
             System.out.println("Source: " + comandos[i].substring(0, 2));
             System.out.println("Target: " + comandos[i].substring(3, 5));
             tabuleiro.imprimirTabuleiro();
