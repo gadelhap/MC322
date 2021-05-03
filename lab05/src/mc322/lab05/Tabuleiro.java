@@ -53,16 +53,18 @@ public class Tabuleiro {
      */
     private Peca[] determinarTrajeto(int sourceI, int sourceJ, int targetI, int targetJ) {
         Peca trajeto[];
-        if (sourceI != targetI && sourceJ != targetJ) {
-            int incrementoI = (sourceI < targetI) ? 1 : -1;
-            int incrementoJ = (sourceJ < targetJ) ? 1 : -1;
-            for (int i = sourceI; i != targetI + incremento; i += incrementoI) {
-                for (int j = sourceJ; j != targetJ + incremento; j += incrementoJ) {
-
-                }
-            }
+        int tamanho = (targetI != sourceI) ? (Math.abs(targetI - sourceI) + 1) : (Math.abs(targetJ - sourceJ) + 1); /* calcula o tamanho de acordo com o tipo de trajeto: diagonal, vertical ou horizontal */
+        trajeto = new Pecas[tamanho];
+        int i = sourceI;
+        int j = sourceJ;
+        int incrementoI = (targetI - sourceI) / (tamanho - 1);
+        int incrementoJ = (targetJ - sourceJ) / (tamanho - 1);
+        for (int ponto = 0; ponto < tamanho; ponto++) {
+            trajeto[ponto] = this.pecas[i][j];
+            i += incrementoI;
+            j += incrementoJ;
         }
-        
+        return trajeto;
     }
 
     private void solicitaMovimento(String comando) {}
