@@ -60,7 +60,11 @@ public class Tabuleiro {
         int incrementoI = (tgtI - srcI) / (tamanho - 1);
         int incrementoJ = (tgtJ - srcJ) / (tamanho - 1);
         for (int ponto = 0; ponto < tamanho; ponto++) {
-            trajeto[ponto] = this.pecas[i][j];
+            if (Posicao.valida(i, j)) {
+                trajeto[ponto] = this.pecas[i][j];
+            } else {
+                trajeto[ponto] = null;
+            }            
             i += incrementoI;
             j += incrementoJ;
         }
