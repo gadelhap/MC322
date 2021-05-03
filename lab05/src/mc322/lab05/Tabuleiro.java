@@ -43,22 +43,22 @@ public class Tabuleiro {
     }
 
     /**
-     * sourceI: linha da source.
-     * sourceJ: coluna da source.
-     * targetI: linha do target.
-     * targetJ: coluna do target.
+     * srcI: linha da source.
+     * srcJ: coluna da source.
+     * tgtI: linha do target.
+     * tgtJ: coluna do target.
      * Retorna um vetor com as peças de um trajeto entre as posições source e
      * target no tabuleiro, sendo a peça na source o primeiro item do vetor e
      * a peça no target, o último.
      */
-    private Peca[] determinarTrajeto(int sourceI, int sourceJ, int targetI, int targetJ) {
+    private Peca[] determinarTrajeto(int srcI, int srcJ, int tgtI, int tgtJ) {
         Peca trajeto[];
-        int tamanho = (targetI != sourceI) ? (Math.abs(targetI - sourceI) + 1) : (Math.abs(targetJ - sourceJ) + 1); /* calcula o tamanho de acordo com o tipo de trajeto: diagonal, vertical ou horizontal */
+        int tamanho = (tgtI != srcI) ? (Math.abs(tgtI - srcI) + 1) : (Math.abs(tgtJ - srcJ) + 1); /* calcula o tamanho de acordo com o tipo de trajeto: diagonal, vertical ou horizontal */
         trajeto = new Pecas[tamanho];
-        int i = sourceI;
-        int j = sourceJ;
-        int incrementoI = (targetI - sourceI) / (tamanho - 1);
-        int incrementoJ = (targetJ - sourceJ) / (tamanho - 1);
+        int i = srcI;
+        int j = srcJ;
+        int incrementoI = (tgtI - srcI) / (tamanho - 1);
+        int incrementoJ = (tgtJ - srcJ) / (tamanho - 1);
         for (int ponto = 0; ponto < tamanho; ponto++) {
             trajeto[ponto] = this.pecas[i][j];
             i += incrementoI;
@@ -67,7 +67,23 @@ public class Tabuleiro {
         return trajeto;
     }
 
-    private void solicitaMovimento(String comando) {}
+    /**
+     * comando: string no formato sJsI:tJtI, em que sJsI é a coluna e a linha
+     * da posição inicial e tJtI, da posição final.
+     * Atualiza o tabuleiro de acordo com um comando válido.
+     */
+    private void solicitaMovimento(String comando) {
+        int srcI = Posicao.linhaCharParaInteiro(comando.charAt(1));
+        int srcJ = Posicao.colunaCharParaInteiro(comando.charAt(0));
+        int tgtI = Posicao.linhaCharParaInteiro(comando.charAt(4));
+        int tgtJ = Posicao.colunaCharParaInteiro(comando.charAt(3));
+        Peca trajeto[] = determinarTrajeto(srcI, srcJ, tgtI, tgtJ);
+        if (this.pecas[srcI][srcJ].movimentoValido(trajeto)) {
+            for (int ponto = 1; ponto < trajeto.length - 1; ponto++) {
+                this.pecas[trajeto[ponto].getLinha()][trajeto[ponto].getColuna()].setTipo('-');
+            }
+        }
+    }
 
     /**
      * path: caminho para um arquivo CSV.
