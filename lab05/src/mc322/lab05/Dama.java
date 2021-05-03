@@ -13,19 +13,16 @@ public class Dama extends Peca {
     /**
      * trajeto: vetor com as peças do trajeto, em que a primeira é a peça na
      * source e a última é a peça no target.
-     * Retorna true se o movimento é válido.
+     * Retorna um vetor com duas posições caso seja válido e capturado uma peça
+     * Um vetor com um único elemento se válido e não capturou peça
+     * Null caso seja inválido
      */
-    public boolean movimentoValido(Peca[] trajeto) {
-        if (trajeto[0][0] == trajeto[trajeto.length - 1][0] || trajeto[0][1] == trajeto[trajeto.length - 1][1]){
-            return false;
+    public int[] movimentoValido(Peca[] trajeto) {
+        if (trajeto.length < 2){
+            return  null;
         }
-        if (trajeto.length < 3){
-            return false;
+        if (){
+
         }
-        if (!Posicao.valida(trajeto[trajeto.length - 1][0], trajeto[trajeto.length - 1][1])) {
-            return false;
-        }
-        this.tipo = '-';
-        return true;
     }
 }

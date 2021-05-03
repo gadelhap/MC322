@@ -54,7 +54,7 @@ public class Tabuleiro {
     private Peca[] determinarTrajeto(int srcI, int srcJ, int tgtI, int tgtJ) {
         Peca trajeto[];
         int tamanho = (tgtI != srcI) ? (Math.abs(tgtI - srcI) + 1) : (Math.abs(tgtJ - srcJ) + 1); /* calcula o tamanho de acordo com o tipo de trajeto: diagonal, vertical ou horizontal */
-        trajeto = new Pecas[tamanho];
+        trajeto = new Peca[tamanho];
         int i = srcI;
         int j = srcJ;
         int incrementoI = (tgtI - srcI) / (tamanho - 1);
@@ -71,16 +71,23 @@ public class Tabuleiro {
      * comando: string no formato sJsI:tJtI, em que sJsI é a coluna e a linha
      * da posição inicial e tJtI, da posição final.
      * Atualiza o tabuleiro de acordo com um comando válido.
+     * Se o movimento for válido e tiver peça capturada ele move.
+     * Se não for válido ele retorna o vetor [-1]
      */
-    private void solicitaMovimento(String comando) {
+    public void solicitaMovimento(String comando) {
         int srcI = Posicao.linhaCharParaInteiro(comando.charAt(1));
         int srcJ = Posicao.colunaCharParaInteiro(comando.charAt(0));
         int tgtI = Posicao.linhaCharParaInteiro(comando.charAt(4));
         int tgtJ = Posicao.colunaCharParaInteiro(comando.charAt(3));
         Peca trajeto[] = determinarTrajeto(srcI, srcJ, tgtI, tgtJ);
-        if (this.pecas[srcI][srcJ].movimentoValido(trajeto)) {
-            for (int ponto = 1; ponto < trajeto.length - 1; ponto++) {
-                this.pecas[trajeto[ponto].getLinha()][trajeto[ponto].getColuna()].setTipo('-');
+        int pecaCapturada[] = this.pecas[srcI][srcJ].movimentoValido(trajeto); //null se o movimento eh invalido, nao null se permitido (tamanho 1 sem peça comida e tamanho 2 com peça comida)
+        if (pecaCapturada != null) {
+            this.pecas[tgtI][tgtJ].setTipo(this.pecas[srcI][srcJ].getTipo());
+            this.pecas[srcI][srcJ].setTipo('-');
+            if (pecaCapturada.length >= 2) {
+                this.pecas[pecaCapturada[0]][pecaCapturada[1]].setTipo('-');
+            } else {
+                System.out.println("Movimento inválido, Senhor");
             }
         }
     }

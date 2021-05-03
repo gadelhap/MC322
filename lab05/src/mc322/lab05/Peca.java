@@ -47,7 +47,7 @@ public class Peca {
         return this.coluna;
     }
 
-    public boolean movimentoValido(Pecas trajeto[]){
-        return false;
+    public int[] movimentoValido(Peca trajeto[]){
+        return null;
     }
 }
