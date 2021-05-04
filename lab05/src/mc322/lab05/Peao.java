@@ -44,10 +44,13 @@ public class Peao extends Peca {
         int pecaCapturada[];
         if (trajeto.length == 1) { //movimento simples.
             pecaCapturada = new int[] {-1};
-        } else { //movimento com captura.
-            pecaCapturada = new int[] {trajeto[0].getLinha(), trajeto[0].getColuna()};
+            return pecaCapturada;
         }
-        return pecaCapturada;
+        if (!Posicao.avaliarMesmoTipo(trajeto[trajeto.length - 2], this)){ //movimento com captura(sem capturar peca do mesmo tipo)
+            pecaCapturada = new int[] {trajeto[0].getLinha(), trajeto[0].getColuna()};
+            return pecaCapturada;
+        }
+        return null;
     }
 
 }
