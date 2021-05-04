@@ -71,6 +71,16 @@ public class Tabuleiro {
         return trajeto;
     }
 
+    private Peca viraDama(char tipo, int linha, int coluna){
+        if(linha == 7 && tipo == 'b'){
+            return new Dama('B', linha, coluna);
+        }
+        if (linha == 0 && tipo == 'p'){
+            return new Dama('P', linha, coluna);
+        }
+        return null;
+    }
+
     /**
      * comando: string no formato sJsI:tJtI, em que sJsI é a coluna e a linha
      * da posição inicial e tJtI, da posição final.
@@ -88,11 +98,16 @@ public class Tabuleiro {
         if (pecaCapturada != null) {
             this.pecas[tgtI][tgtJ].setTipo(this.pecas[srcI][srcJ].getTipo());
             this.pecas[srcI][srcJ].setTipo('-');
-            if (pecaCapturada.length >= 2) {
-                this.pecas[pecaCapturada[0]][pecaCapturada[1]].setTipo('-');
-            } else {
-                System.out.println("Movimento inválido, Senhor");
+            Peca pecaMovida = viraDama(this.pecas[tgtI][tgtJ].getTipo(), tgtI, tgtJ);
+            if (pecaMovida != null){//criacao da dama
+                this.pecas[tgtI][tgtJ] = pecaMovida;
             }
+            if (pecaCapturada.length >= 2) { //teve uma captura de peca
+                this.pecas[pecaCapturada[0]][pecaCapturada[1]].setTipo('-');
+                System.out.println("Uma peça foi capturada :)");
+            }
+        } else {
+            System.out.println("Movimento inválido, Senhor");
         }
     }
 
