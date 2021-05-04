@@ -43,6 +43,70 @@ public class Tabuleiro {
     }
 
     /**
+     * Retorna o tabuleiro em forma de string com os tipos das peças, pulando
+     * uma linha para cada linha.
+     */
+    public String paraString() {
+        String tabuleiro = "";
+        for (int i = 7; i >= 0; i--) {
+            for (int j = 0; j < 8; j++) {
+                tabuleiro += this.pecas[i][j].getTipo();
+            }
+            tabuleiro += '\n';
+        }
+        return tabuleiro;
+    }
+
+    /**
+     * Imprime o tabuleiro com o eixo de coordenadas na tela.
+     */
+    public void imprimirTabuleiro() {
+        for (int i = 7; i >= 0; i--) {
+            System.out.print(i + 1);
+            for (int j = 0; j < 8; j++) {
+                System.out.print(" " + pecas[i][j].getTipo());
+            }
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g h");
+    }
+
+    /**
+     * path: caminho para um arquivo CSV.
+     * erro: true caso haja erro, false caso contrário.
+     * Caso não haja erro, escreve no arquivo as casas do tabuleiro, uma a cada
+     * linha, coluna por coluna. As casas são as posições ji seguidas da
+     * respectiva peça: vazia '_', peça branca 'b' ou peça preta 'p'. Caso haja
+     * erro, escreve no arquivo "erro".
+     */
+    public void exportarArquivo(String path, boolean erro) {
+        CSVHandling csv = new CSVHandling();
+        csv.setDataExport(path);
+        String tabuleiro[];
+        if (!erro) {
+            tabuleiro = new String[8 * 8];
+            char coluna, linha;
+            for (int j = 0; j < 8; j++) {
+                coluna = Posicao.colunaInteiroParaChar(j);
+                for (int i = 0; i < 8; i++) {
+                    linha = Posicao.linhaInteiroParaChar(i);
+                    tabuleiro[j * 8 + i] = "";
+                    tabuleiro[j * 8 + i] += coluna + linha;
+                    if (this.pecas[i][j].getTipo() == '-') {
+                        tabuleiro[j * 8 + i] += '_';
+                    } else {
+                        tabuleiro[j * 8 + i] += Character.toLowerCase(this.pecas[i][j].getTipo());
+                    }
+                    tabuleiro[j * 8 + i] += '\n';
+                }
+            }
+        } else {
+            tabuleiro = new String[] {"erro"};
+        }
+        csv.exportState(tabuleiro);
+    }
+
+    /**
      * srcI: linha da source.
      * srcJ: coluna da source.
      * tgtI: linha do target.
@@ -117,70 +181,5 @@ public class Tabuleiro {
             System.out.println("Movimento inválido!");
             return false;
         }
-    }
-
-    /**
-     * path: caminho para um arquivo CSV.
-     * erro: true caso haja erro, false caso contrário.
-     * Caso não haja erro, escreve no arquivo as casas do tabuleiro, uma a cada
-     * linha, coluna por coluna. As casas são as posições ji seguidas da
-     * respectiva peça: vazia '_', peça branca 'b' ou peça preta 'p'. Caso haja
-     * erro, escreve no arquivo "erro".
-     */
-    public void exportarArquivo(String path, boolean erro) {
-        CSVHandling csv = new CSVHandling();
-        csv.setDataExport(path);
-        String tabuleiro[];
-        if (!erro) {
-            tabuleiro = new String[8 * 8];
-            char coluna, linha;
-            for (int j = 0; j < 8; j++) {
-                coluna = Posicao.colunaInteiroParaChar(j);
-                for (int i = 0; i < 8; i++) {
-                    linha = Posicao.linhaInteiroParaChar(i);
-                    tabuleiro[j * 8 + i] = "";
-                    tabuleiro[j * 8 + i] += coluna + linha;
-                    if (this.pecas[i][j].getTipo() == '-') {
-                        tabuleiro[j * 8 + i] += '_';
-                    } else {
-                        tabuleiro[j * 8 + i] += Character.toLowerCase(this.pecas[i][j].getTipo());
-                    }
-                    tabuleiro[j * 8 + i] += '\n';
-                }
-            }
-        } else {
-            tabuleiro = new String[1];
-            tabuleiro[0] = "erro";
-        }
-        csv.exportState(tabuleiro);
-    }
-
-    /**
-     * Retorna o tabuleiro em forma de string com os tipos das peças, pulando
-     * uma linha para cada linha.
-     */
-    public String paraString() {
-        String tabuleiro = "";
-        for (int i = 7; i >= 0; i--) {
-            for (int j = 0; j < 8; j++) {
-                tabuleiro += this.pecas[i][j].getTipo();
-            }
-            tabuleiro += '\n';
-        }
-        return tabuleiro;
-    }
-
-    /**
-     * Imprime o tabuleiro com o eixo de coordenadas na tela.
-     */
-    public void imprimirTabuleiro() {
-        for (int i = 7; i >= 0; i--) {
-            System.out.print(i + 1);
-            for (int j = 0; j < 8; j++) {
-                System.out.print(" " + pecas[i][j].getTipo());
-            }
-            System.out.println();
-        }
-        System.out.println("  a b c d e f g h");
     }
 }
