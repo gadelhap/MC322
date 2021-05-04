@@ -11,36 +11,42 @@ public class Peao extends Peca {
     }
 
     /**
-     * trajeto: vetor com as peças do trajeto, em que a primeira é a peça na
-     * source e a última é a peça no target.
-     * Retorna um vetor com duas posições caso seja válido e capturado uma peça
-     * Um vetor com um único elemento se válido e não capturou peça
-     * null caso seja inválido
+     * trajeto: vetor com as peças do trajeto, em que a primeira é a peça
+     * imediatamente após a source e a última é a peça no target.
+     * Retorna a posição da peça capturada caso haja captura, um vetor com
+     * apenas -1 caso não haja captura e null caso seja um movimento inválido.
      */
     public int[] movimentoValido(Peca[] trajeto) {
-        if (trajeto[0] == null || trajeto[trajeto.length - 1] == null){
-            return null; //fora dos limites
-        }
-        if (trajeto.length < 2 || trajeto.length > 3){ //movimento pro source ou movimento excessivo
+        if (this.tipo == '-') { //source vazia.
             return null;
         }
-        if (trajeto[0].getLinha() == trajeto[trajeto.length - 1].getLinha() || trajeto[0].getColuna() == trajeto[trajeto.length - 1].getColuna()) {
-            return null; //movimento horizontal ou vertical
-        }
-        if (trajeto[trajeto.length - 1].getTipo() != '-'){ //o target esta ocupado
+        if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
             return null;
         }
-        if (trajeto.length == 3 && trajeto[1].getTipo() == '-'){ //pulando uma casa vazia
+        if (trajeto.length == 0 || trajeto.length > 2) { //movimento para o source ou movimento excessivo.
             return null;
         }
-        if (trajeto.length == 2 && (trajeto[trajeto.length - 1].getLinha() > trajeto[0].getLinha())){
-            return null; //movimento para tras sem capturar pecas
+        if (this.linha == trajeto[trajeto.length - 1].getLinha() || this.coluna == trajeto[trajeto.length - 1].getColuna()) { //movimento horizontal ou vertical.
+            return null;
         }
-        if (trajeto.length == 2){ //avanca uma casa na diagonal
-            int [] pecaCapturada = {-1};
-            return pecaCapturada;
+        if (trajeto[trajeto.length - 1].getTipo() != '-') { //target ocupado.
+            return null;
         }
-        int [] pecaCapturada = {trajeto[trajeto.length - 2].getLinha(), trajeto[trajeto.length - 2].getColuna()}; //captura alguem
+        if (trajeto.length == 2 && trajeto[0]].getTipo() == '-') { //pulando uma casa vazia.
+            return null;
+        }
+        if (trajeto.length == 1) {
+            if (this.tipo == 'b' && this.linha > trajeto[trajeto.length - 1].getLinha()) { //movimento simples para trás por peão branco.
+                return null;
+            } else if (this.tipo == 'p' && this.linha < trajeto[trajeto.length - 1].getLinha()) { //movimento simples para trás por peão preto.
+                return null;
+            }
+        }
+        if (trajeto.length == 1) { //movimento simples.
+            int pecaCapturada[] = {-1};
+        } else { //movimento com captura.
+            int pecaCapturada[] = {trajeto[0].getLinha(), trajeto[0].getColuna()};
+        }
         return pecaCapturada;
     }
 

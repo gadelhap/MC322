@@ -1,7 +1,5 @@
 package mc322.lab05;
 
-import java.util.Scanner;
-
 public class AppDama {
     
     /**
@@ -20,12 +18,15 @@ public class AppDama {
         tabuleiro.imprimirTabuleiro();
         for (int i = 0; i < comandos.length; i++) {
             System.out.println();
-            tabuleiro.solicitaMovimento(comandos[i]);
+            if (!tabuleiro.solicitaMovimento(comandos[i])) {
+                tabuleiro.exportarArquivo(pathEstadoFinal, true);
+                return;
+            }
             System.out.println("Source: " + comandos[i].substring(0, 2));
             System.out.println("Target: " + comandos[i].substring(3, 5));
             tabuleiro.imprimirTabuleiro();
         }
-        tabuleiro.exportarArquivo(pathEstadoFinal);
+        tabuleiro.exportarArquivo(pathEstadoFinal, false);
     }
 
     public static void main(String args[]){

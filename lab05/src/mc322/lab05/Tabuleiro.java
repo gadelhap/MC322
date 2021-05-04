@@ -5,7 +5,7 @@ public class Tabuleiro {
     private Peca[][] pecas;
 
     /**
-     * Inicializa um Tabuleiro.
+     * Inicializa um tabuleiro.
      */
     Tabuleiro() {
         this.pecas = new Peca[8][8];
@@ -48,17 +48,17 @@ public class Tabuleiro {
      * tgtI: linha do target.
      * tgtJ: coluna do target.
      * Retorna um vetor com as peças de um trajeto entre as posições source e
-     * target no tabuleiro, sendo a peça na source o primeiro item do vetor e
-     * a peça no target, o último.
+     * target no tabuleiro, sendo a peça imediatamente após a source o primeiro
+     * item do vetor e a peça no target, o último.
      */
     private Peca[] determinarTrajeto(int srcI, int srcJ, int tgtI, int tgtJ) {
         Peca trajeto[];
-        int tamanho = (tgtI != srcI) ? (Math.abs(tgtI - srcI) + 1) : (Math.abs(tgtJ - srcJ) + 1); /* calcula o tamanho de acordo com o tipo de trajeto: diagonal, vertical ou horizontal */
+        int tamanho = (tgtI != srcI) ? (Math.abs(tgtI - srcI)) : (Math.abs(tgtJ - srcJ)); /* calcula o tamanho de acordo com o tipo de trajeto: diagonal, vertical ou horizontal */
         trajeto = new Peca[tamanho];
-        int i = srcI;
-        int j = srcJ;
-        int incrementoI = (tgtI - srcI) / (tamanho - 1);
-        int incrementoJ = (tgtJ - srcJ) / (tamanho - 1);
+        int incrementoI = (tgtI - srcI) / (tamanho);
+        int incrementoJ = (tgtJ - srcJ) / (tamanho);
+        int i = srcI + incrementoI;
+        int j = srcJ + incrementoJ;
         for (int ponto = 0; ponto < tamanho; ponto++) {
             if (Posicao.valida(i, j)) {
                 trajeto[ponto] = this.pecas[i][j];
@@ -71,70 +71,84 @@ public class Tabuleiro {
         return trajeto;
     }
 
-    private Peca viraDama(char tipo, int linha, int coluna){
-        if(linha == 7 && tipo == 'b'){
-            return new Dama('B', linha, coluna);
+    /**
+     * peca: uma peça.
+     * Transforma a peça em uma dama, caso esteja no lado oposto do tabuleiro.
+     */
+    private void transformarEmDama(Peca peca) {
+        int linha = peca.getLinha();
+        int coluna = peca.getColuna();
+        char tipo = peca.getTipo();
+        if (tipo == 'b' && linha == 7) {
+            this.pecas[linha][coluna] = new Dama('B', linha, coluna);
+        } else if (tipo == 'p' && linha == 0) {
+            this.pecas[linha][coluna] = new Dama('P', linha, coluna);
         }
-        if (linha == 0 && tipo == 'p'){
-            return new Dama('P', linha, coluna);
-        }
-        return null;
     }
 
     /**
      * comando: string no formato sJsI:tJtI, em que sJsI é a coluna e a linha
      * da posição inicial e tJtI, da posição final.
-     * Atualiza o tabuleiro de acordo com um comando válido.
-     * Se o movimento for válido e tiver peça capturada ele move.
-     * Se não for válido ele retorna o vetor [-1]
+     * Retorna true e atualiza o tabuleiro de acordo com um comando caso este
+     * seja válido, e retorna false caso haja um comando inválido.
      */
-    public void solicitaMovimento(String comando) {
+    public boolean solicitaMovimento(String comando) {
         int srcI = Posicao.linhaCharParaInteiro(comando.charAt(1));
         int srcJ = Posicao.colunaCharParaInteiro(comando.charAt(0));
         int tgtI = Posicao.linhaCharParaInteiro(comando.charAt(4));
         int tgtJ = Posicao.colunaCharParaInteiro(comando.charAt(3));
         Peca trajeto[] = determinarTrajeto(srcI, srcJ, tgtI, tgtJ);
-        int pecaCapturada[] = this.pecas[srcI][srcJ].movimentoValido(trajeto); //null se o movimento eh invalido, nao null se permitido (tamanho 1 sem peça comida e tamanho 2 com peça comida)
+        int pecaCapturada[] = this.pecas[srcI][srcJ].movimentoValido(trajeto);
         if (pecaCapturada != null) {
-            this.pecas[tgtI][tgtJ].setTipo(this.pecas[srcI][srcJ].getTipo());
-            this.pecas[srcI][srcJ].setTipo('-');
-            Peca pecaMovida = viraDama(this.pecas[tgtI][tgtJ].getTipo(), tgtI, tgtJ);
-            if (pecaMovida != null){//criacao da dama
-                this.pecas[tgtI][tgtJ] = pecaMovida;
+            char tipoSrc = this.pecas[srcI][srcJ].getTipo();
+            this.pecas[srcI][srcJ] = new Peca('-', srcI, srcJ);
+            if (pecaCapturada.length == 2) {
+                this.pecas[pecaCapturada[0]][pecaCapturada[1] = new Peca('-', pecaCapturada[0], pecaCapturada[1]);
+                System.out.println("Uma peça foi capturada!");
             }
-            if (pecaCapturada.length >= 2) { //teve uma captura de peca
-                this.pecas[pecaCapturada[0]][pecaCapturada[1]].setTipo('-');
-                System.out.println("Uma peça foi capturada :)");
+            if (tipoSrc == 'b' || tipoSrc == 'p') {
+                this.pecas[tgtI][tgtJ] = new Peao(tipoSrc, tgtI, tgtJ);
+                transformarEmDama(this.pecas[tgtI][tgtJ]);
+            } else {
+                this.pecas[tgtI][tgtJ] = new Dama(tipoSrc, tgtI, tgtJ);
             }
-        } else {
-            System.out.println("Movimento inválido, Senhor");
+            return true;
         }
+        System.out.println("Movimento inválido!");
+        return false;
     }
 
     /**
      * path: caminho para um arquivo CSV.
-     * Escreve no arquivo as casas do tabuleiro, uma a cada linha, coluna por
-     * coluna. As casas são as posições ji seguidas da respectiva peça: vazia
-     * '_', peça branca 'b' ou peça preta 'p'.
+     * erro: true caso haja erro, false caso contrário.
+     * Caso não haja erro, escreve no arquivo as casas do tabuleiro, uma a cada
+     * linha, coluna por coluna. As casas são as posições ji seguidas da
+     * respectiva peça: vazia '_', peça branca 'b' ou peça preta 'p'. Caso haja
+     * erro, escreve no arquivo "erro".
      */
-    public void exportarArquivo(String path) {
+    public void exportarArquivo(String path, boolean erro) {
         CSVHandling csv = new CSVHandling();
-        String tabuleiro[] = new String[8 * 8];
-        char coluna, linha;
-        for (int j = 0; j < 8; j++) {
-            coluna = Posicao.colunaInteiroParaChar(j);
-            for (int i = 0; i < 8; i++) {
-                linha = Posicao.linhaInteiroParaChar(i);
-                tabuleiro[j * 8 + i] += coluna + linha;
-                if (this.pecas[i][j].getTipo() == '-') {
-                    tabuleiro[j * 8 + i] += '_';
-                } else {
-                    tabuleiro[j * 8 + i] += Character.toLowerCase(this.pecas[i][j].getTipo());
+        csv.setDataExport(path);
+        if (!erro) {
+            String tabuleiro[] = new String[8 * 8];
+            char coluna, linha;
+            for (int j = 0; j < 8; j++) {
+                coluna = Posicao.colunaInteiroParaChar(j);
+                for (int i = 0; i < 8; i++) {
+                    linha = Posicao.linhaInteiroParaChar(i);
+                    tabuleiro[j * 8 + i] += coluna + linha;
+                    if (this.pecas[i][j].getTipo() == '-') {
+                        tabuleiro[j * 8 + i] += '_';
+                    } else {
+                        tabuleiro[j * 8 + i] += Character.toLowerCase(this.pecas[i][j].getTipo());
+                    }
+                    tabuleiro[j * 8 + i] += '\n';
                 }
             }
+            csv.exportState(tabuleiro);
+        } else {
+            csv.exportState("erro");
         }
-        csv.setDataExport(path);
-        csv.exportState(tabuleiro);
     }
 
     /**
