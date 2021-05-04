@@ -156,6 +156,21 @@ public class Tabuleiro {
     }
 
     /**
+     * Retorna o tabuleiro em forma de string com os tipos das peças, pulando
+     * uma linha para cada linha.
+     */
+    public String paraString() {
+        String tabuleiro = "";
+        for (int i = 7; i >= 0; i--) {
+            for (int j = 0; j < 8; j++) {
+                tabuleiro += this.pecas[i][j].getTipo();
+            }
+            tabuleiro += '\n';
+        }
+        return tabuleiro;
+    }
+
+    /**
      * Imprime o tabuleiro com o eixo de coordenadas na tela.
      */
     public void imprimirTabuleiro() {
