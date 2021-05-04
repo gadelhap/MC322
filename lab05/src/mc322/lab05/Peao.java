@@ -41,16 +41,15 @@ public class Peao extends Peca {
                 return null;
             }
         }
-        int pecaCapturada[];
         if (trajeto.length == 1) { //movimento simples.
-            pecaCapturada = new int[] {-1};
+            int pecaCapturada[] = {-1};
             return pecaCapturada;
         }
-        if (!Posicao.avaliarMesmoTipo(trajeto[trajeto.length - 2], this)){ //movimento com captura(sem capturar peca do mesmo tipo)
-            pecaCapturada = new int[] {trajeto[0].getLinha(), trajeto[0].getColuna()};
+        if (this.tipo != Character.toLowerCase(trajeto[0].getTipo())) { //movimento com captura.
+            int pecaCapturada[] = {trajeto[0].getLinha(), trajeto[0].getColuna()};
             return pecaCapturada;
         }
-        return null;
+        return null; //captura de peça da mesma cor.
     }
 
 }

@@ -53,17 +53,15 @@ public class Dama extends Peca {
         int pecaCapturada[];
         if (n == 0) { //movimento simples.
             pecaCapturada = new int[] {-1};
-            return pecaCapturada
-        }
-        if (!Posicao.avaliarMesmoTipo(trajeto[trajeto.length - 2], this)){ //movimento com captura(sem comer a mesma peca)
-            for (int contador = 0; contador < trajeto.length - 1; contador++) {
-                if (trajeto[contador].getTipo() != '-') {
-                    break;
-                }
-            }
-            pecaCapturada = new int[] {trajeto[contador].getLinha(), trajeto[contador].getColuna()};
             return pecaCapturada;
         }
-        return null;
+        int contador;
+        for (contador = 0; contador < trajeto.length - 1; contador++) {
+            if (trajeto[contador].getTipo() != '-' && Character.toLowerCase(this.tipo) != Character.toLowerCase(trajeto[contador].getTipo())) { //movimento com captura.
+                pecaCapturada = new int[] {trajeto[contador].getLinha(), trajeto[contador].getColuna()};
+                return pecaCapturada;
+            }
+        }   
+        return null; //captura de peça da mesma cor.
     }
 }
