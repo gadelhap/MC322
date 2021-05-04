@@ -103,7 +103,7 @@ public class Tabuleiro {
             char tipoSrc = this.pecas[srcI][srcJ].getTipo();
             this.pecas[srcI][srcJ] = new Peca('-', srcI, srcJ);
             if (pecaCapturada.length == 2) {
-                this.pecas[pecaCapturada[0]][pecaCapturada[1] = new Peca('-', pecaCapturada[0], pecaCapturada[1]);
+                this.pecas[pecaCapturada[0]][pecaCapturada[1]] = new Peca('-', pecaCapturada[0], pecaCapturada[1]);
                 System.out.println("Uma peça foi capturada!");
             }
             if (tipoSrc == 'b' || tipoSrc == 'p') {
@@ -129,8 +129,9 @@ public class Tabuleiro {
     public void exportarArquivo(String path, boolean erro) {
         CSVHandling csv = new CSVHandling();
         csv.setDataExport(path);
+        String tabuleiro[];
         if (!erro) {
-            String tabuleiro[] = new String[8 * 8];
+            tabuleiro = new String[8 * 8];
             char coluna, linha;
             for (int j = 0; j < 8; j++) {
                 coluna = Posicao.colunaInteiroParaChar(j);
@@ -145,10 +146,11 @@ public class Tabuleiro {
                     tabuleiro[j * 8 + i] += '\n';
                 }
             }
-            csv.exportState(tabuleiro);
         } else {
-            csv.exportState("erro");
+            tabuleiro = new String[1];
+            tabuleiro[0] = "erro";
         }
+        csv.exportState(tabuleiro);
     }
 
     /**

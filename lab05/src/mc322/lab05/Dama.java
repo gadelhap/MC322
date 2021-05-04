@@ -17,8 +17,8 @@ public class Dama extends Peca {
      */
     private int pecasIntermediarias(Peca[] trajeto) {
         int n = 0;
-        for (int ponto = 0; ponto < trajeto.length - 1; ponto++){
-            if (trajeto[ponto].getTipo() != '-'){
+        for (int ponto = 0; ponto < trajeto.length - 1; ponto++) {
+            if (trajeto[ponto].getTipo() != '-') {
                 n++;
             }
         }
@@ -51,15 +51,17 @@ public class Dama extends Peca {
         if (n > 1) { //pulando mais de uma peça.
             return null;
         }
+        int pecaCapturada[];
         if (n == 0) { //movimento simples.
-            int pecaCapturada[] = {-1};
+            pecaCapturada = new int[] {-1};
         } else { //movimento com captura.
-            for (int contador = 0; contador < trajeto.length - 1; contador++) {
+            int contador;
+            for (contador = 0; contador < trajeto.length - 1; contador++) {
                 if (trajeto[contador].getTipo() != '-') {
-                    int [] pecaCapturada = {trajeto[contador].getLinha(), trajeto[contador].getColuna()};
                     break;
                 }
             }
+            pecaCapturada = new int[] {trajeto[contador].getLinha(), trajeto[contador].getColuna()};
         }
         return pecaCapturada;
     }

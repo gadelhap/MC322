@@ -32,7 +32,7 @@ public class Peao extends Peca {
         if (trajeto[trajeto.length - 1].getTipo() != '-') { //target ocupado.
             return null;
         }
-        if (trajeto.length == 2 && trajeto[0]].getTipo() == '-') { //pulando uma casa vazia.
+        if (trajeto.length == 2 && trajeto[0].getTipo() == '-') { //pulando uma casa vazia.
             return null;
         }
         if (trajeto.length == 1) {
@@ -42,10 +42,11 @@ public class Peao extends Peca {
                 return null;
             }
         }
+        int pecaCapturada[];
         if (trajeto.length == 1) { //movimento simples.
-            int pecaCapturada[] = {-1};
+            pecaCapturada = new int[] {-1};
         } else { //movimento com captura.
-            int pecaCapturada[] = {trajeto[0].getLinha(), trajeto[0].getColuna()};
+            pecaCapturada = new int[] {trajeto[0].getLinha(), trajeto[0].getColuna()};
         }
         return pecaCapturada;
     }
