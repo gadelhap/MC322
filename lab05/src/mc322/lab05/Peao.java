@@ -4,6 +4,8 @@ public class Peao extends Peca {
     
     /**
      * tipo: tipo do peão.
+     * linha: linha do peão.
+     * coluna: coluna do peão.
      * Inicializa um peão.
      */
     Peao(char tipo, int linha, int coluna) {
@@ -17,9 +19,6 @@ public class Peao extends Peca {
      * apenas -1 caso não haja captura e null caso seja um movimento inválido.
      */
     public int[] movimentoValido(Peca[] trajeto) {
-        if (this.tipo == '-') { //source vazia.
-            return null;
-        }
         if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
             return null;
         }

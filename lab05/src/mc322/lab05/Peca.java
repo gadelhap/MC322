@@ -54,6 +54,6 @@ public class Peca {
      * apenas -1 caso não haja captura e null caso seja um movimento inválido.
      */
     public int[] movimentoValido(Peca trajeto[]){
-        return null;
+        return null; //source vazia.
     }
 }

@@ -12,13 +12,13 @@ public class Tabuleiro {
         for (int i = 0; i < 3; i++) {
             if (i == 0 || i == 2) {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peca('-', i, j);
-                    this.pecas[i][j + 1] = new Peao('b', i, j + 1);
+                    this.pecas[i][j] = new Peao('b', i, j);
+                    this.pecas[i][j + 1] = new Peca('-', i, j + 1);
                 }
             } else {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peao('b', i, j);
-                    this.pecas[i][j + 1] = new Peca('-', i, j + 1);
+                    this.pecas[i][j] = new Peca('-', i, j);
+                    this.pecas[i][j + 1] = new Peao('b', i, j + 1);
                 }
             }
         }
@@ -30,13 +30,13 @@ public class Tabuleiro {
         for (int i = 5; i < 8; i++) {
             if (i == 5 || i == 7) {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peao('p', i, j);
-                    this.pecas[i][j + 1] = new Peca('-', i, j + 1);
+                    this.pecas[i][j] = new Peca('-', i, j);
+                    this.pecas[i][j + 1] = new Peao('p', i, j + 1);
                 }
             } else {
                 for (int j = 0; j < 8; j += 2) {
-                    this.pecas[i][j] = new Peca('-', i, j);
-                    this.pecas[i][j + 1] = new Peao('p', i, j + 1);
+                    this.pecas[i][j] = new Peao('p', i, j);
+                    this.pecas[i][j + 1] = new Peca('-', i, j + 1);
                 }
             }
         }
@@ -157,7 +157,7 @@ public class Tabuleiro {
      * Imprime o tabuleiro com o eixo de coordenadas na tela.
      */
     public void imprimirTabuleiro() {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 7; i >= 0; i--) {
             System.out.print(i + 1);
             for (int j = 0; j < 8; j++) {
                 System.out.print(" " + pecas[i][j].getTipo());
