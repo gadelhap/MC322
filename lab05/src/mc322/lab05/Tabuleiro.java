@@ -113,9 +113,10 @@ public class Tabuleiro {
                 this.pecas[tgtI][tgtJ] = new Dama(tipoSrc, tgtI, tgtJ);
             }
             return true;
+        } else {
+            System.out.println("Movimento inválido!");
+            return false;
         }
-        System.out.println("Movimento inválido!");
-        return false;
     }
 
     /**
@@ -137,6 +138,7 @@ public class Tabuleiro {
                 coluna = Posicao.colunaInteiroParaChar(j);
                 for (int i = 0; i < 8; i++) {
                     linha = Posicao.linhaInteiroParaChar(i);
+                    tabuleiro[j * 8 + i] = "";
                     tabuleiro[j * 8 + i] += coluna + linha;
                     if (this.pecas[i][j].getTipo() == '-') {
                         tabuleiro[j * 8 + i] += '_';
