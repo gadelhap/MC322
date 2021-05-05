@@ -15,6 +15,7 @@ public class AppDama {
         CSVHandling csv = new CSVHandling();
         String comandos[];
         String estados[];
+        boolean erro = false;
         csv.setDataSource(pathComandos);
         comandos = csv.requestCommands();
         estados = new String[comandos.length + 1];
@@ -25,10 +26,11 @@ public class AppDama {
             System.out.println();
             System.out.println("Source: " + comandos[i].substring(0, 2));
             System.out.println("Target: " + comandos[i].substring(3, 5));
+            erro = tabuleiro.solicitaMovimento(comandos[i]);
             tabuleiro.imprimirTabuleiro();
             estados[i + 1] = tabuleiro.paraString();
         }
-        tabuleiro.exportarArquivo(pathEstadoFinal, false);
+        tabuleiro.exportarArquivo(pathEstadoFinal, !erro);
         return estados;
     }
 

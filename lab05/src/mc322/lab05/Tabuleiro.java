@@ -91,13 +91,13 @@ public class Tabuleiro {
                 for (int i = 0; i < 8; i++) {
                     linha = Posicao.linhaInteiroParaChar(i);
                     tabuleiro[j * 8 + i] = "";
-                    tabuleiro[j * 8 + i] += coluna + linha;
+                    tabuleiro[j * 8 + i] += coluna;
+                    tabuleiro[j * 8 + i] += linha;
                     if (this.pecas[i][j].getTipo() == '-') {
                         tabuleiro[j * 8 + i] += '_';
                     } else {
-                        tabuleiro[j * 8 + i] += Character.toLowerCase(this.pecas[i][j].getTipo());
+                        tabuleiro[j * 8 + i] += this.pecas[i][j].getTipo();
                     }
-                    tabuleiro[j * 8 + i] += '\n';
                 }
             }
         } else {
