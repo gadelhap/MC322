@@ -107,6 +107,21 @@ public class Tabuleiro {
     }
 
     /**
+     * peca: uma peça.
+     * Transforma a peça em uma dama, caso esteja no lado oposto do tabuleiro.
+     */
+    private void transformarEmDama(Peca peca) {
+        int linha = peca.getLinha();
+        int coluna = peca.getColuna();
+        char tipo = peca.getTipo();
+        if (tipo == 'b' && linha == 7) {
+            this.pecas[linha][coluna] = new Dama('B', linha, coluna);
+        } else if (tipo == 'p' && linha == 0) {
+            this.pecas[linha][coluna] = new Dama('P', linha, coluna);
+        }
+    }
+
+    /**
      * srcI: linha da source.
      * srcJ: coluna da source.
      * tgtI: linha do target.
@@ -136,21 +151,6 @@ public class Tabuleiro {
     }
 
     /**
-     * peca: uma peça.
-     * Transforma a peça em uma dama, caso esteja no lado oposto do tabuleiro.
-     */
-    private void transformarEmDama(Peca peca) {
-        int linha = peca.getLinha();
-        int coluna = peca.getColuna();
-        char tipo = peca.getTipo();
-        if (tipo == 'b' && linha == 7) {
-            this.pecas[linha][coluna] = new Dama('B', linha, coluna);
-        } else if (tipo == 'p' && linha == 0) {
-            this.pecas[linha][coluna] = new Dama('P', linha, coluna);
-        }
-    }
-
-    /**
      * comando: string no formato sJsI:tJtI, em que sJsI é a coluna e a linha
      * da posição inicial e tJtI, da posição final.
      * Retorna true e atualiza o tabuleiro de acordo com um comando caso este
@@ -161,6 +161,9 @@ public class Tabuleiro {
         int srcJ = Posicao.colunaCharParaInteiro(comando.charAt(0));
         int tgtI = Posicao.linhaCharParaInteiro(comando.charAt(4));
         int tgtJ = Posicao.colunaCharParaInteiro(comando.charAt(3));
+        if (!Posicao.valida(srcI, srcJ)) { //source fora do tabuleiro.
+            return false;
+        }
         Peca trajeto[] = determinarTrajeto(srcI, srcJ, tgtI, tgtJ);
         int pecaCapturada[] = this.pecas[srcI][srcJ].movimentoValido(trajeto);
         if (pecaCapturada != null) {

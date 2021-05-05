@@ -15,8 +15,8 @@ public class Peao extends Peca {
     /**
      * trajeto: vetor com as peças do trajeto, em que a primeira é a peça
      * imediatamente após a source e a última é a peça no target.
-     * Retorna a posição da peça capturada caso haja captura, um vetor com
-     * apenas -1 caso não haja captura e null caso seja um movimento inválido.
+     * Retorna a posição da peça capturada caso haja captura, um vetor vazio
+     * caso não haja captura e null caso seja um movimento inválido.
      */
     public int[] movimentoValido(Peca[] trajeto) {
         if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
@@ -31,9 +31,6 @@ public class Peao extends Peca {
         if (trajeto[trajeto.length - 1].getTipo() != '-') { //target ocupado.
             return null;
         }
-        if (trajeto.length == 2 && trajeto[0].getTipo() == '-') { //pulando uma casa vazia.
-            return null;
-        }
         if (trajeto.length == 1) {
             if (this.tipo == 'b' && this.linha > trajeto[trajeto.length - 1].getLinha()) { //movimento simples para trás por peão branco.
                 return null;
@@ -41,8 +38,11 @@ public class Peao extends Peca {
                 return null;
             }
         }
+        if (trajeto.length == 2 && trajeto[0].getTipo() == '-') { //pulando duas casas sem capturar.
+            return null;
+        }
         if (trajeto.length == 1) { //movimento simples.
-            int pecaCapturada[] = {-1};
+            int pecaCapturada[] = {};
             return pecaCapturada;
         }
         if (this.tipo != Character.toLowerCase(trajeto[0].getTipo())) { //movimento com captura.

@@ -50,16 +50,16 @@ public class Dama extends Peca {
         if (n > 1) { //pulando mais de uma peça.
             return null;
         }
-        int pecaCapturada[];
         if (n == 0) { //movimento simples.
-            pecaCapturada = new int[0];
+            int pecaCapturada[] = {};
             return pecaCapturada;
         }
         if (trajeto[trajeto.length - 2].getTipo() == '-') { //peça capturada antes da posição imediatamente antes do target.
             return null;
         }
         if (Character.toLowerCase(this.tipo) != Character.toLowerCase(trajeto[trajeto.length - 2].getTipo())) { //movimento com captura.
-            pecaCapturada = new int[] {trajeto[trajeto.length - 2].getLinha(), trajeto[trajeto.length - 2].getColuna()};
+            int pecaCapturada[] = {trajeto[trajeto.length - 2].getLinha(), trajeto[trajeto.length - 2].getColuna()};
+            return pecaCapturada;
         }
         return null; //captura de peça da mesma cor.
     }
