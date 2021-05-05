@@ -35,19 +35,24 @@ public class Dama extends Peca {
      */
     public int[] movimentoValido(Peca[] trajeto) {
         if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
+            //System.out.println("target fora do tabuleiro.");
             return null;
         }
         if (trajeto.length == 0) { //movimento para o source.
+            //System.out.println("movimento para o source");
             return null;
         }
         if (this.linha == trajeto[trajeto.length - 1].getLinha() || this.coluna == trajeto[trajeto.length - 1].getColuna()) { //movimento horizontal ou vertical.
+            //System.out.println("movimento horizontal ou vertical");
             return null;
         }
         if (trajeto[trajeto.length - 1].getTipo() != '-') { //target ocupado.
+            //System.out.println("target ocupado");
             return null;
         }
         int n = pecasIntermediarias(trajeto);
         if (n > 1) { //pulando mais de uma peça.
+            //System.out.println("pulando mais de uma peca");
             return null;
         }
         if (n == 0) { //movimento simples.
@@ -55,12 +60,14 @@ public class Dama extends Peca {
             return pecaCapturada;
         }
         if (trajeto[trajeto.length - 2].getTipo() == '-') { //peça capturada antes da posição imediatamente antes do target.
+            //System.out.println("peca capturada antes da posicao imediatamente antes do target");
             return null;
         }
         if (Character.toLowerCase(this.tipo) != Character.toLowerCase(trajeto[trajeto.length - 2].getTipo())) { //movimento com captura.
             int pecaCapturada[] = {trajeto[trajeto.length - 2].getLinha(), trajeto[trajeto.length - 2].getColuna()};
             return pecaCapturada;
         }
+        //System.out.println("captura de peca da mesma cor");
         return null; //captura de peça da mesma cor.
     }
 }
