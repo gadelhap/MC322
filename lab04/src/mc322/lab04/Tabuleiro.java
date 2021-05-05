@@ -143,7 +143,7 @@ public class Tabuleiro {
                 if (Posicao.valida(i, j)) {
                     System.out.print(" " + pecas[i][j].tipo());
                 } else {
-                    System.out.print("  "); //2 espacos
+                    System.out.print("  ");
                 }
             }
             System.out.println();

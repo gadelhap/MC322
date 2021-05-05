@@ -2,8 +2,6 @@
 
 ## Arquivos Java sobre Jogo Resta Um
 
-[Pasta.](https://github.com/gadelhap/MC322/tree/master/lab04/src/mc322/lab04)
+Para acionar o jogo no terminal, chame o programa *AppRestaUm*. Então, digite um path (ou arraste o arquivo para o terminal) para um arquivo CSV de entrada (ou arraste o arquivo para o terminal) com comandos a serem executados no tabuleiro.
 
-## Arquivos de teste/demonstração para AppRestaUm
-
-[Pasta.](https://github.com/gadelhap/MC322/tree/master/lab04/testes)
+[Pasta com os arquivos Java.](https://github.com/gadelhap/MC322/tree/master/lab04/src/mc322/lab04)
