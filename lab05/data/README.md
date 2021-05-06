@@ -11,3 +11,6 @@
 * teste11: comandos inválidos com dama capturando peça não imediatamente antes do target.
 * teste12: comandos inválidos com captura de peça da mesma cor.
 * teste13: último comando é inválido.
+
+# NÃO É CONSIDERADA A NECESSIDADE DE REVEZAMENTO DE CORES NOS TESTES.
+# NEM TODOS COMANDOS DENTRO DE UM TESTE SÃO INVÁLIDOS.
