@@ -9,13 +9,15 @@ public class AppDama {
      * Retorna um vetor de strings com todos estados do tabuleiro de Jogo de
      * Damas durante um jogo com os dados comandos, imprime na tela esses
      * estados com suas descrições e exporta o estado final para um arquivo.
+     * Caso o último comando seja inválido, exporta "erro" e nada mais para o
+     * arquivo.
      */
     public static String[] executaJogo(String pathComandos, String pathEstadoFinal) {
         Tabuleiro tabuleiro = new Tabuleiro();
         CSVHandling csv = new CSVHandling();
         String comandos[];
         String estados[];
-        boolean erro = false;
+        boolean comandoValido = true;
         csv.setDataSource(pathComandos);
         comandos = csv.requestCommands();
         estados = new String[comandos.length + 1];
@@ -26,11 +28,11 @@ public class AppDama {
             System.out.println();
             System.out.println("Source: " + comandos[i].substring(0, 2));
             System.out.println("Target: " + comandos[i].substring(3, 5));
-            erro = tabuleiro.solicitaMovimento(comandos[i]);
+            comandoValido = tabuleiro.solicitaMovimento(comandos[i]);
             tabuleiro.imprimirTabuleiro();
             estados[i + 1] = tabuleiro.paraString();
         }
-        tabuleiro.exportarArquivo(pathEstadoFinal, !erro);
+        tabuleiro.exportarArquivo(pathEstadoFinal, comandoValido);
         return estados;
     }
 

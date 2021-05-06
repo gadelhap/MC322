@@ -19,10 +19,13 @@ public class Peao extends Peca {
      * caso não haja captura e null caso seja um movimento inválido.
      */
     public int[] movimentoValido(Peca[] trajeto) {
-        if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
+        if (trajeto.length == 0) { //movimento para o source.
             return null;
         }
-        if (trajeto.length == 0 || trajeto.length > 2) { //movimento para o source ou movimento excessivo.
+        if ((trajeto.length == 2 && trajeto[0].getTipo() == '-') ||trajeto.length > 2) { //movimento excessivo.
+            return null;
+        }
+        if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
             return null;
         }
         if (this.linha == trajeto[trajeto.length - 1].getLinha() || this.coluna == trajeto[trajeto.length - 1].getColuna()) { //movimento horizontal ou vertical.
@@ -38,16 +41,13 @@ public class Peao extends Peca {
                 return null;
             }
         }
-        if (trajeto.length == 2 && trajeto[0].getTipo() == '-') { //pulando duas casas sem capturar.
-            return null;
-        }
         if (trajeto.length == 1) { //movimento simples.
-            int pecaCapturada[] = {};
-            return pecaCapturada;
+            int posPecaCapturada[] = {};
+            return posPecaCapturada;
         }
         if (this.tipo != Character.toLowerCase(trajeto[0].getTipo())) { //movimento com captura.
-            int pecaCapturada[] = {trajeto[0].getLinha(), trajeto[0].getColuna()};
-            return pecaCapturada;
+            int posPecaCapturada[] = {trajeto[0].getLinha(), trajeto[0].getColuna()};
+            return posPecaCapturada;
         }
         return null; //captura de peça da mesma cor.
     }

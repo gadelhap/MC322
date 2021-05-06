@@ -43,8 +43,8 @@ public class Tabuleiro {
     }
 
     /**
-     * Retorna o tabuleiro em forma de string com os tipos das peças, pulando
-     * uma linha para cada linha.
+     * Retorna o tabuleiro em forma de string com os tipos das peças, linha por
+     * linha pulando uma linha para cada linha.
      */
     public String paraString() {
         String tabuleiro = "";
@@ -72,18 +72,18 @@ public class Tabuleiro {
     }
 
     /**
-     * path: caminho para um arquivo CSV.
-     * erro: true caso haja erro, false caso contrário.
+     * path: caminho para um arquivo CSV de saída.
+     * valido: true caso não haja erro, false caso contrário.
      * Caso não haja erro, escreve no arquivo as casas do tabuleiro, uma a cada
-     * linha, coluna por coluna. As casas são as posições ji seguidas da
-     * respectiva peça: vazia '_', peça branca 'b' ou peça preta 'p'. Caso haja
-     * erro, escreve no arquivo "erro".
+     * linha, coluna por coluna. As casas são as posições ji seguidas do tipo
+     * da respectiva peça, mas peça vazia é denotada por '_'. Caso haja erro,
+     * escreve "erro" no arquivo.
      */
-    public void exportarArquivo(String path, boolean erro) {
+    public void exportarArquivo(String path, boolean valido) {
         CSVHandling csv = new CSVHandling();
         csv.setDataExport(path);
         String tabuleiro[];
-        if (!erro) {
+        if (valido) {
             tabuleiro = new String[8 * 8];
             char coluna, linha;
             for (int j = 0; j < 8; j++) {
@@ -93,11 +93,7 @@ public class Tabuleiro {
                     tabuleiro[j * 8 + i] = "";
                     tabuleiro[j * 8 + i] += coluna;
                     tabuleiro[j * 8 + i] += linha;
-                    if (this.pecas[i][j].getTipo() == '-') {
-                        tabuleiro[j * 8 + i] += '_';
-                    } else {
-                        tabuleiro[j * 8 + i] += this.pecas[i][j].getTipo();
-                    }
+                    tabuleiro[j * 8 + i] += (this.pecas[i][j].getTipo() == '-') ? '_' : this.pecas[i][j].getTipo();
                 }
             }
         } else {
@@ -134,16 +130,15 @@ public class Tabuleiro {
         Peca trajeto[];
         int tamanho = (tgtI != srcI) ? (Math.abs(tgtI - srcI)) : (Math.abs(tgtJ - srcJ)); /* calcula o tamanho de acordo com o tipo de trajeto: diagonal, vertical ou horizontal */
         trajeto = new Peca[tamanho];
+        if (tamanho == 0) {
+            return trajeto;
+        }
         int incrementoI = (tgtI - srcI) / (tamanho);
         int incrementoJ = (tgtJ - srcJ) / (tamanho);
         int i = srcI + incrementoI;
         int j = srcJ + incrementoJ;
         for (int ponto = 0; ponto < tamanho; ponto++) {
-            if (Posicao.valida(i, j)) {
-                trajeto[ponto] = this.pecas[i][j];
-            } else {
-                trajeto[ponto] = null;
-            }            
+            trajeto[ponto] = (Posicao.valida(i, j)) ? this.pecas[i][j] : null;         
             i += incrementoI;
             j += incrementoJ;
         }
@@ -154,7 +149,7 @@ public class Tabuleiro {
      * comando: string no formato sJsI:tJtI, em que sJsI é a coluna e a linha
      * da posição inicial e tJtI, da posição final.
      * Retorna true e atualiza o tabuleiro de acordo com um comando caso este
-     * seja válido, e retorna false caso haja um comando inválido.
+     * seja válido, e retorna false caso o comando seja inválido.
      */
     public boolean solicitaMovimento(String comando) {
         int srcI = Posicao.linhaCharParaInteiro(comando.charAt(1));
@@ -162,16 +157,16 @@ public class Tabuleiro {
         int tgtI = Posicao.linhaCharParaInteiro(comando.charAt(4));
         int tgtJ = Posicao.colunaCharParaInteiro(comando.charAt(3));
         if (!Posicao.valida(srcI, srcJ)) { //source fora do tabuleiro.
+            System.out.println("Movimento inválido!");
             return false;
         }
         Peca trajeto[] = determinarTrajeto(srcI, srcJ, tgtI, tgtJ);
-        int pecaCapturada[] = this.pecas[srcI][srcJ].movimentoValido(trajeto);
-        if (pecaCapturada != null) {
+        int posPecaCapturada[] = this.pecas[srcI][srcJ].movimentoValido(trajeto);
+        if (posPecaCapturada != null) {
             char tipoSrc = this.pecas[srcI][srcJ].getTipo();
             this.pecas[srcI][srcJ] = new Peca('-', srcI, srcJ);
-            if (pecaCapturada.length == 2) {
-                this.pecas[pecaCapturada[0]][pecaCapturada[1]] = new Peca('-', pecaCapturada[0], pecaCapturada[1]);
-                System.out.println("Uma peça foi capturada!");
+            if (posPecaCapturada.length != 0) {
+                this.pecas[posPecaCapturada[0]][posPecaCapturada[1]] = new Peca('-', posPecaCapturada[0], posPecaCapturada[1]);
             }
             if (tipoSrc == 'b' || tipoSrc == 'p') {
                 this.pecas[tgtI][tgtJ] = new Peao(tipoSrc, tgtI, tgtJ);
